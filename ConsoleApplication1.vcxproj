@@ -140,11 +140,13 @@
     <ClCompile Include="commonfunc.cpp" />
     <ClCompile Include="ConsoleApplication1.cpp" />
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="gameState.cpp" />
     <ClCompile Include="unit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="gameState.h" />
     <ClInclude Include="unit.h" />
     <ClInclude Include="commonfunc.h" />
   </ItemGroup>
