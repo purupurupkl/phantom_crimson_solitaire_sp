@@ -1,9 +1,11 @@
-
+	
 #include "commonfunc.h"
 #include "BaseObject.h"
 #include "unit.h"
+#include "gameState.h"
 
 SDL_Window* window = NULL;
+SDL_Renderer* renderer = NULL;
 SDL_Rect clips[4];
 
  // it won't work if it's not a pointer
