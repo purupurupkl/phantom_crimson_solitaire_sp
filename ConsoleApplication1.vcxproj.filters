@@ -24,18 +24,24 @@
     <ClCompile Include="unit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="commonfunc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gameState.cpp">
+    <ClCompile Include="gameM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mainMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="textureLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="commonfunc.h">
+    <ClInclude Include="constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BaseObject.h">
@@ -47,7 +53,16 @@
     <ClInclude Include="enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gameState.h">
+    <ClInclude Include="gameM.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mainMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="textureLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
