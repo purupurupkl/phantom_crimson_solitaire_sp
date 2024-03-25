@@ -1,12 +1,15 @@
 #include "gameM.h"
 #include "mainMenu.h"
-//#include "charSelect.h"
+#include "charSelect.h"
+#include "mainCombat.h"
 #include "constants.h"
 mainMenu* mainmenu;
-//charSelect* charselect;
+charSelect* charselect;
+mainCombat* maincombat;
 
 SDL_Renderer* gameM::renderer = NULL;
-int gameM::current = gameM::main_menu;
+int gameM::current = gameM::main_combat;
+bool gameM::quit = false;
 gameM::gameM() {
 
 };
@@ -43,28 +46,30 @@ bool gameM::init() {
 void gameM::loadMedia() {
 
 	mainmenu = new mainMenu();
-	//charselect = new charSelect();
-
+	charselect = new charSelect();
+	maincombat = new mainCombat();
 
 	mainmenu->loadMedia();
-	//charselect->loadMedia();
+	charselect->loadMedia();
+	maincombat->loadMedia();
+
 }
-void gameM::eventHandler() {
-	SDL_Event e;
-	bool quit = false;
-	while (!quit) {
-		while (SDL_PollEvent(&e) != 0) {
-			if (e.type == SDL_QUIT) {
-				quit = true;
-			}
-			switch (current) {
-			case main_menu:
-				mainmenu->eventHandler(e);
-				break;
-			//case char_select:
-			//	charselect->eventHandler(e);
-			}
-		}
+bool gameM::quitgame() {
+	return quit;
+}
+void gameM::eventHandler(SDL_Event& e) {
+	if (e.type == SDL_QUIT) {
+		quit = true;
+	}
+	switch (current) {
+	case main_menu:
+		mainmenu->eventHandler(e);
+		break;
+	case char_select:
+		charselect->eventHandler(e);
+		break;
+	case main_combat:
+		maincombat->eventHandler(e);
 	}
 }
 void gameM::update() {
@@ -72,8 +77,11 @@ void gameM::update() {
 	case main_menu:
 		mainmenu->update();
 		break;
-	//case char_select:
-	//	charselect->update();
+	case char_select:
+		charselect->update();
+		break;
+	case main_combat:
+		maincombat->update();
 	}
 
 }
@@ -82,14 +90,20 @@ void gameM::render() {
 	case main_menu:
 		mainmenu->render();
 		break;
-	//case char_select:
-	//	charselect->render();
+	case char_select:
+		charselect->render();
+		break;
+	case main_combat:
+		maincombat->render();
+		break;
 	}
 }
 void gameM::clean() {
 	mainmenu->clean();
-	//charselect->clean();
+	charselect->clean();
+	maincombat->clean();
 
 	delete(mainmenu);
-	//delete(charselect);
+	delete(charselect);
+	delete(maincombat);
 }

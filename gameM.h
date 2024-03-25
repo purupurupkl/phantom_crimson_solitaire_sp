@@ -14,19 +14,22 @@ public:
 	void loadMedia();
 
 	//process event
-	void eventHandler();
+	void eventHandler(SDL_Event &e);
 
 	void update();
 	void render();
 	void clean();
-
+	static bool quitgame();
 	static SDL_Renderer* renderer;
 	static int current;
 
 private:
+	static bool quit;
 	SDL_Window* window;
 	static const int main_menu = 0;
 	static const int char_select = 1;
+
+	static const int main_combat = 2;
 };
 
 
