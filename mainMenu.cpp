@@ -15,7 +15,7 @@ void mainMenu::eventHandler(SDL_Event e) {
 	if (e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEMOTION) {
 
 		bg->set_image(textureLoader::loadTexture("C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\granblue-fantasy-relink-character-art-uhdpaper.com-hd-5.1773.jpg"));
-		bg->render();
+		bg->autorender();
 		SDL_RenderPresent(gameM::renderer);
 	}
 }
