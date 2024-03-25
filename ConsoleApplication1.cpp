@@ -6,9 +6,15 @@ int main(int argc, char* argv[])
 	gameM* game = new gameM();
 	if (game->init()) {
 		game->loadMedia();
-		game->eventHandler();
-		game->update();
-		game->render();
+		SDL_Event e;
+		while (!gameM::quitgame()) {
+			while (SDL_PollEvent(&e)) {
+				game->eventHandler(e);
+			}
+			game->update();
+			game->render();
+
+		}
 	}
 	game->clean();
 	delete game;

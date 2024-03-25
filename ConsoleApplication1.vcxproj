@@ -136,23 +136,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BaseObject.cpp" />
+    <ClCompile Include="charSelect.cpp" />
     <ClCompile Include="ConsoleApplication1.cpp" />
-    <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="entity.cpp" />
     <ClCompile Include="gameM.cpp" />
     <ClCompile Include="image.cpp" />
+    <ClCompile Include="mainCombat.cpp" />
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="textureLoader.cpp" />
-    <ClCompile Include="unit.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseObject.h" />
-    <ClInclude Include="enemy.h" />
+    <ClInclude Include="charSelect.h" />
+    <ClInclude Include="entity.h" />
+    <ClInclude Include="entityData.h" />
+    <ClInclude Include="entityImage.h" />
     <ClInclude Include="gameM.h" />
     <ClInclude Include="image.h" />
+    <ClInclude Include="mainCombat.h" />
     <ClInclude Include="mainMenu.h" />
     <ClInclude Include="textureLoader.h" />
-    <ClInclude Include="unit.h" />
     <ClInclude Include="constants.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
