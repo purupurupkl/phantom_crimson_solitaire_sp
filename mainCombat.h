@@ -20,6 +20,7 @@ public:
 	static int bgOffset;
 private:
 	image* bg;
+	//3 enemies, 3 allies
 	entity* char1;
 	entity* char2;
 	entity* char3;
