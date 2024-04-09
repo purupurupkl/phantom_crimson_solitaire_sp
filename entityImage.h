@@ -8,16 +8,38 @@
 //    //std::string attacking;
 //};
 namespace characterImage {
-    const std::string Zeta{
-        "C:\\Users\\HUYBUIAN\\Downloads\\100161_0_100_000.png"
+    std::string Zeta[2]{
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\zetaidle2.png",
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\zetaatk2.png"
     };
-    const std::string Cagliostro{
-        "C:\\Users\\HUYBUIAN\\Downloads\\migu.jpg"
+    std::string Cagliostro[2]{
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\zetaidle2.png",
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\zetaatk2.png"
     };
-    const std::string Djeeta{
-        "C:\\Users\\HUYBUIAN\\Downloads\\100161_0_100_007.png"
+    std::string Djeeta[2]{
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\zetaidle2.png",
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\zetaatk2.png"
     };
-    const std::string Dog{
+    std::string Dog[2]{
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\dog.jpg",
         "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\dog.jpg"
+    };
+}
+namespace skillImage {
+    std::string Zeta[2]{
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\zeta_s1.png",
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\zeta_s2.png"
+    };
+    std::string Cagliostro[2]{
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\zeta_s1.png",
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\zeta_s2.png"
+    };
+    std::string Djeeta[2]{
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\zeta_s1.png",
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\zeta_s2.png"
+    };
+    std::string Dog[2]{
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\zeta_s1.png",
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\zeta_s2.png"
     };
 }
