@@ -41,7 +41,6 @@ void image::autorender() {
 }
 
 void image::render(SDL_Rect dst) {
-	rect = dst;
 	SDL_RenderCopy(gameM::renderer, texture, NULL, &dst);
 	if (texture == NULL) printf("cannot copy texture! error: %s", SDL_GetError());
 }
