@@ -22,14 +22,15 @@ public:
 private:
 	image* bg;
 	//3 enemies, 3 allies
-	/*entity* char1;
-	entity* char2;
-	entity* char3;
-	entity* enemy1;
-	entity* enemy2;
-	entity* enemy3;*/
-	entity* units[6]; // 6 characters...
+	entity* ally[3];
+	entity* enemy[3];// 6 characters...
 	SDL_Rect dst[6];
+	bool skillchoosen;
+	bool enemychoosen;
+	bool turntaken;
 	int currentturn;
+	int skillchoice;
+	int enemychoice;
+	int allychoice;
 };
 
