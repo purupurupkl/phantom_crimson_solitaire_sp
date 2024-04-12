@@ -11,7 +11,7 @@ public:
 
 	//set the object "texture" = "img";
 	void set_image(SDL_Texture* img);
-
+	void set_imagepos(SDL_Rect& imgpos);
 	//take w and h value from image texture
 	void get_settings();
 
@@ -28,9 +28,9 @@ public:
 	void flick_if_needed();
 
 	void clean();
-	SDL_Rect rect;
+	
 protected:
-
+	SDL_Rect rect;
 	SDL_Texture* texture;
 	bool drawornot; // do i need this?
 

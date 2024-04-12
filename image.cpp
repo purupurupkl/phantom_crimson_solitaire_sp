@@ -25,6 +25,9 @@ void image::set_image(SDL_Texture* img) {
 	set_blendmode();
 	//get_settings();        causing image to not load?
 }
+void image::set_imagepos(SDL_Rect& imgpos) {
+	rect = imgpos;
+}
 void image::get_settings() {
 	SDL_QueryTexture(texture, NULL, NULL, &(rect.w), &rect.y);
 }
@@ -38,6 +41,7 @@ void image::set_alpha(Uint8 alpha) {
 
 void image::autorender() {
 	SDL_RenderCopy(gameM::renderer, texture, NULL, &rect);
+	if (texture == NULL) printf("cannot copy texture! error: %s", SDL_GetError());
 }
 
 void image::render(SDL_Rect dst) {
@@ -59,8 +63,7 @@ bool image::inside() {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
 	SDL_Rect mousenow = { x,y,1,1 };
-	SDL_Rect buttonnow = { rect.x,rect.y, rect.w, rect.h };
-	bool inside = SDL_HasIntersection(&mousenow, &buttonnow);
+	bool inside = SDL_HasIntersection(&mousenow, &rect);
 	return inside;
 }
 void image::flick_if_needed() {
