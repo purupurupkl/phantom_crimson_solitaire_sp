@@ -1,37 +1,39 @@
 #include "entity.h"
-#include "entityImage.h"
 #include <iostream>
+#include "entityImage.h"
 #include "textureLoader.h"
+entity::entity() {};
 entity::entity(int ID) {
 	//if id = 1 create djeeta, 2 is cag 3 is zeta
 	switch (ID) {
-	case 1:
-		stats = characterStats::DjeetaStats;
-		for (int i = 0; i < 2; i++) {
+		case 1:
+			stats = characterStats::DjeetaStats;
+			for (int i = 0; i < 2; i++) {
 			sprite[i] = characterImage::Djeeta[i];
 			cast[i] = skillImage::Djeeta[i];
-		}
-		break;
-	case 2:
-		stats = characterStats::CagliostroStats;
-		for (int i = 0; i < 2; i++) {
+			}
+			break;
+		case 2:
+			stats = characterStats::CagliostroStats;
+			for (int i = 0; i < 2; i++) {
 			sprite[i] = characterImage::Cagliostro[i];
 			cast[i] = skillImage::Cagliostro[i];
-		}
-		break;
-	case 3:
-		stats = characterStats::ZetaStats;
-		for (int i = 0; i < 2; i++) {
+			}
+			break;
+		case 3:
+			stats = characterStats::ZetaStats;
+			for (int i = 0; i < 2; i++) {
 			sprite[i] = characterImage::Zeta[i];
 			cast[i] = skillImage::Zeta[i];
-		}
-		break;
-	case -1:
-		stats = characterStats::DogStats;
-		for (int i = 0; i < 2; i++) {
+			}
+			break;
+		case -1:
+			stats = characterStats::DogStats;
+			for (int i = 0; i < 2; i++) {
 			sprite[i] = characterImage::Dog[i];
 			cast[i] = skillImage::Dog[i];
-		}
+			}
+			break;
 	}
 	std::cout << stats.atk << " " << stats.name << std::endl;
 	dead = false;
@@ -49,13 +51,6 @@ void entity::attacksttchange(bool now) {
 }
 bool entity::atkstt_getter() {
 	return attackstatus;
-}
-void entity::hurtsttchange(bool now) {
-	hurtstatus = now;
-}
-bool entity::hurtstt_getter()
-{
-	return hurtstatus;
 }
 double entity::hp_getter() {
 	return stats.hp;
@@ -77,26 +72,21 @@ int entity::choose_skill() {
 	}
 	return i; //auto attack by default
 }
-int entity::enemy_skill() {
-	return 1;
-}
+
 double entity::skill_cast(int i) {
 	double mult = 1;
 	if (i == 0) mult = stats.s1.multiplier;
 	else if (i == 1) mult = stats.s2.multiplier;
 	return stats.atk*mult;
 }
+int mob::mob_skill() {
+	return 1;
+}
 //void entity::skill_choosen() {
 //	if (skill[1].inside()) {
 //		/*if(stats.s2.cooldown != 0)*/
 //
 //	}
-//}
-//void entity::deadsttchange(bool now) {
-//	dead = now;
-//}
-//bool entity::deadstt_getter() {
-//	return dead;
 //}
 //image* entity::image_getter() {
 //	return &idle;
@@ -121,16 +111,14 @@ void entity::renderEntity(SDL_Rect dst, int act) {
 		idle,
 		atk
 	};
-	if (act == idle) stance[idle].render(dst); 
-	else if (act == atk) stance[atk].render(dst);
+	stance[act].render(dst);
 }
 void entity::renderEntity(int act) {
 	enum {
 		idle,
 		atk
 	};
-	if (act == idle) stance[idle].autorender();
-	else if (act == atk) stance[atk].autorender();
+	stance[act].autorender();
 
 }
 void entity::renderSkill() {

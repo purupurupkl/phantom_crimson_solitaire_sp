@@ -22,8 +22,8 @@ public:
 private:
 	image* bg;
 	//3 enemies, 3 allies
-	entity* ally[3];
-	entity* enemy[3];// 6 characters...
+	fren* ally[3];
+	mob* enemy[3];// 6 characters...
 	SDL_Rect dst[6];
 	bool skillchoosen;
 	bool enemychoosen;

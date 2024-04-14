@@ -1,11 +1,11 @@
 #pragma once
 //#include <string>
 #include "entityData.h"
-
 #include "image.h"
 class entity
 {
 public:
+	entity();
 	entity(int ID);
 	~entity();
 	
@@ -16,14 +16,11 @@ public:
 
 	bool anyskillchoosen();
 	int choose_skill();
-	int enemy_skill();
 	double skill_cast(int i);
 	// change attack status to now
 	
 	void attacksttchange(bool now);
 	bool atkstt_getter();
-	void hurtsttchange(bool now);
-	bool hurtstt_getter();
 
 
 	//load image into character texture
@@ -34,7 +31,6 @@ public:
 	//image* image_getter();
 	void set_rect(SDL_Rect& rect);
 	bool inside();
-private:
 	
 	entityData stats;
 	std::string sprite[2];
@@ -47,3 +43,20 @@ private:
 	bool hurtstatus;
 };
 
+class fren :
+    public entity
+{
+public:
+	using entity::entity;
+	fren(int ID) : entity::entity(ID) {};
+    //~fren();
+};
+
+class mob :
+    public entity
+{
+public:
+    mob(int ID) : entity::entity(ID) {};
+    int mob_skill();
+
+};

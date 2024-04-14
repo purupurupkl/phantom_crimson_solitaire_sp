@@ -141,6 +141,7 @@
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="gameM.cpp" />
     <ClCompile Include="image.cpp" />
+    <ClCompile Include="level1.cpp" />
     <ClCompile Include="mainCombat.cpp" />
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="textureLoader.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="entityImage.h" />
     <ClInclude Include="gameM.h" />
     <ClInclude Include="image.h" />
+    <ClInclude Include="level1.h" />
     <ClInclude Include="mainCombat.h" />
     <ClInclude Include="mainMenu.h" />
     <ClInclude Include="textureLoader.h" />

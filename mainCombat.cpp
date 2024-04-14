@@ -1,9 +1,10 @@
 #include "mainCombat.h"
 #include "constants.h"
+#include <ctime>
 int mainCombat::bgOffset = 0;
 mainCombat::mainCombat() {
 	//all these rects and chars should be put in vectors or something
-	
+	srand(time(0));
 	 dst[0] = {100, 300, 90, 90};
 	 dst[1] = { 100, 500, 90, 90 };
 	 dst[2] = { 200, 400, 90, 90 };
@@ -29,12 +30,14 @@ void mainCombat::loadMedia() {
 	bg->set_image(textureLoader::loadTexture("C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\desert.jpeg"));
 
 	for (int i = 0; i < 3; i++) {
-		ally[i] = new entity(1);
+		ally[i] = new fren(1);
+		std::cout << ally[i]->sprite[1] << std::endl;	
 		ally[i]->loadEntityTexture();
 		ally[i]->set_rect(dst[i]);
+		std::cout << ally[i]->hp_getter() << std::endl;
 	}
 	for (int i = 0; i < 3; i++) {
-		enemy[i] = new entity(-1);
+		enemy[i] = new mob(-1);
 		enemy[i]->loadEntityTexture();
 		enemy[i]->set_rect(dst[i + 3]);
 	}
@@ -60,13 +63,12 @@ void mainCombat::eventHandler(SDL_Event e) {
 	// turn based: press on ally -> ally chosen (like below); press on enemy, enemy chosen; press on another enemy: function changetarget()? on entity class/on combat class/on the vector class (vector of entity)
 	//}	
 	if (currentturn >= 3) {
-		skillchoice = enemy[currentturn - 3]->enemy_skill();
-		allychoice = 0;
-		/*while (ally[allychoice]->dead == true) {
-			allychoice++;
-		}*/
+		skillchoice = /*enemy[currentturn - 3]->enemy_skill();*/ 1;
+		do {
+			allychoice = rand() % 3;
+		} while (ally[allychoice]->dead == true);
 		ally[allychoice]->attacked(enemy[currentturn - 3]->skill_cast(skillchoice));
-		std::cout << "ally " << allychoice << " attacked,remaining health " << ally[allychoice]->hp_getter() << std::endl;
+		std::cout << "ally " << allychoice << " was attacked,remaining health " << ally[allychoice]->hp_getter() << std::endl;
 		/*ally[allychoosen]->hurtsttchange(true);*/
 		turntaken = true;
 		printf("next turn : character %i\n", currentturn + 1);
@@ -74,11 +76,11 @@ void mainCombat::eventHandler(SDL_Event e) {
 	}
 	else{
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
-			if (/*enemychoosen == false && */ally[currentturn]->anyskillchoosen()) {
+			if (ally[currentturn]->anyskillchoosen()) {
 				skillchoice = ally[currentturn]->choose_skill();
 				skillchoosen = true;
 			}
-		else if (enemychoosen == false) {
+			else if (enemychoosen == false) {
 				for (int i = 0; i < 3; i++) {
 					if (enemy[i]->inside() && enemy[i]->dead == false){
 						std::cout << "enemy " << i << " choosen";
@@ -91,16 +93,11 @@ void mainCombat::eventHandler(SDL_Event e) {
 		}
 		if (skillchoosen == true && enemychoosen == true) {
 			enemy[enemychoice]->attacked(ally[currentturn]->skill_cast(skillchoice));
-			std::cout << "enemy " << enemychoice << " attacked,remaining health " << enemy[enemychoice]->hp_getter() << std::endl;
-			enemy[enemychoice]->hurtsttchange(true);
+			std::cout << "enemy " << enemychoice << " was `attacked,remaining health " << enemy[enemychoice]->hp_getter() << std::endl;
 			printf("next turn : character %i\n", currentturn + 1);
 			turntaken = true;
 		}
-	}
-
-	
-
-		
+	}	
 }
 
 void mainCombat::update() {
@@ -120,6 +117,10 @@ void mainCombat::update() {
 		skillchoosen = false;
 		enemychoosen = false;
 		currentturn = (currentturn + 1) % 6;
+		for (int i = 0; i < 3; i++) {
+			std::cout << std::endl << ally[i]->hp_getter() << " ";
+		}
+		std::cout << std::endl;
 		turntaken = false;
 	}
 	//for (int i = 0; i < 3; i++) {
@@ -155,6 +156,7 @@ void mainCombat::update() {
 		bgOffset = 0;
 	}
 	
+	
 	//should the character state (idle,attack, run, dead) be updated here?
 	//gonna be one plethora of ifs huh
 }
@@ -185,15 +187,12 @@ void mainCombat::render() {
 		}
 		else enemy[i]->renderEntity(outofscreen, 0);
 	}
-		
 	// Render game objects, characters, backgrounds, etc.
 
 	//render scrolling backround when charactercurrentstate != encounter ?
 
 
-	//rendercharacter(int charactercurrentstate) will render character based on current state
-
-
+	//rendercharacter(int charactercurrentstate) will render character based on current state ???
 	// Present the rendered frame to the screen
 	SDL_RenderPresent(gameM::renderer);
 }
