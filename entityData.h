@@ -1,13 +1,13 @@
 #pragma once
 #include <string>
+#include <map>
 struct skill {
-	/*enum skilltype {
+	enum skilltype {
 		attack,
 		defense,
 		support
-	};*/
-	//string name
-	/*int type;*/
+	};
+	int type;
 	double multiplier;
 	int cooldown;
 	//void resetcd() {
@@ -22,19 +22,23 @@ struct entityData {
 	skill s1, s2;
 };
 namespace skillStats{
-	const skill base{1,3};
-	const skill Zeta_s2{1.2 ,3};
+	const skill base{attack, 1,3};
+	const skill Zeta_s2{attack, 1.2 ,3};
 }
 
 namespace characterStats{
 	const entityData DjeetaStats = { "Djeeta", 100, 50, skillStats::base, skillStats::Zeta_s2 };
 	const entityData CagliostroStats = { "Cagliostro", 50, 90, skillStats::base, skillStats::Zeta_s2 };
 	const entityData ZetaStats = { "Zeta", 80, 60, skillStats::base, skillStats::Zeta_s2 };
-
-
-
 	const entityData DogStats = { "Dog", 70, 10, skillStats::base, skillStats::Zeta_s2 };
 
+
+	/*std::map<int, entityData> characterData = {
+		{1, DjeetaStats},
+		{2, CagliostroStats},
+		{3, ZetaStats},
+		{-1, DogStats}
+	};*/
 	//enum names {
 	//	Djeeta, Cagliostro,Zeta
 	//};
