@@ -21,6 +21,7 @@ image::image() {};
 image::~image() {}
 
 void image::set_image(SDL_Texture* img) {
+	if (img == NULL) std::cout << "what happened???" << std::endl;
 	texture = img;
 	set_blendmode();
 	//get_settings();        causing image to not load?
