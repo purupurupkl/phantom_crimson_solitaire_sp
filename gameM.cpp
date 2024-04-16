@@ -1,14 +1,15 @@
 #include "gameM.h"
 #include "mainMenu.h"
 #include "charSelect.h"
-#include "mainCombat.h"
+#include "level1.h"
+#include "level2.h"
 #include "constants.h"
 mainMenu* mainmenu;
 charSelect* charselect;
-mainCombat* maincombat;
-
+//mainCombat* maincombat;
+level1* levelone;
 SDL_Renderer* gameM::renderer = NULL;
-int gameM::current = gameM::main_combat;
+int gameM::current = gameM::main_menu;
 bool gameM::quit = false;
 gameM::gameM() {
 
@@ -47,12 +48,12 @@ void gameM::loadMedia() {
 
 	mainmenu = new mainMenu();
 	charselect = new charSelect();
-	maincombat = new mainCombat();
-
+	//maincombat = new mainCombat();
+	levelone = new level1();
 	mainmenu->loadMedia();
 	charselect->loadMedia();
-	maincombat->loadMedia();
-
+	//maincombat->loadMedia();
+	levelone->loadMedia();
 }
 bool gameM::quitgame() {
 	return quit;
@@ -69,7 +70,7 @@ void gameM::eventHandler(SDL_Event& e) {
 		charselect->eventHandler(e);
 		break;
 	case main_combat:
-		maincombat->eventHandler(e);
+		/*maincombat*/levelone->eventHandler(e);
 	}
 }
 void gameM::update() {
@@ -81,9 +82,8 @@ void gameM::update() {
 		charselect->update();
 		break;
 	case main_combat:
-		maincombat->update();
+		/*maincombat*/ levelone->update();
 	}
-
 }
 void gameM::render() {
 	switch (current) {
@@ -94,16 +94,17 @@ void gameM::render() {
 		charselect->render();
 		break;
 	case main_combat:
-		maincombat->render();
+		/*maincombat*/levelone->render();
 		break;
 	}
+
 }
 void gameM::clean() {
 	mainmenu->clean();
 	charselect->clean();
-	maincombat->clean();
+	/*maincombat*/levelone->clean();
 
-	delete(mainmenu);
-	delete(charselect);
-	delete(maincombat);
+	//delete(mainmenu);
+	//delete(charselect);
+	//delete(levelone);
 }

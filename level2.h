@@ -1,10 +1,9 @@
 #pragma once
 #include "mainCombat.h"
-class level1 :
+class level2 :
     public mainCombat
 {
-public:
-    level1() : mainCombat() {};
+    level2() : mainCombat::mainCombat() {};
     void loadMedia() override;
 };
 

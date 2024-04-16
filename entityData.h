@@ -22,8 +22,8 @@ struct entityData {
 	skill s1, s2;
 };
 namespace skillStats{
-	const skill base{attack, 1,3};
-	const skill Zeta_s2{attack, 1.2 ,3};
+	const skill base{0, 1,3};
+	const skill Zeta_s2{0, 1.2 ,3};
 }
 
 namespace characterStats{

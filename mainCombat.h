@@ -10,16 +10,16 @@ public:
 	mainCombat();
 	~mainCombat();
 
-	void loadMedia();
+	virtual void loadMedia();
 
 	//handle mouse events
-	void eventHandler(SDL_Event e);
+	virtual void eventHandler(SDL_Event e);
 
 	void update();
 	void render();
 	void clean();
 	static int bgOffset;
-private:
+
 	image* bg;
 	//3 enemies, 3 allies
 	fren* ally[3];
@@ -32,5 +32,6 @@ private:
 	int skillchoice;
 	int enemychoice;
 	int allychoice;
+	bool flag;
 };
 

@@ -22,14 +22,13 @@ public:
 	static bool quitgame();
 	static SDL_Renderer* renderer;
 	static int current;
-
+	static const int main_menu = 0;
+	static const int char_select = 1;
+	static const int main_combat = 2;
 private:
 	static bool quit;
 	SDL_Window* window;
-	static const int main_menu = 0;
-	static const int char_select = 1;
-
-	static const int main_combat = 2;
+	
 };
 
 

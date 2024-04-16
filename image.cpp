@@ -46,8 +46,9 @@ void image::autorender() {
 }
 
 void image::render(SDL_Rect dst) {
-	SDL_RenderCopy(gameM::renderer, texture, NULL, &dst);
 	if (texture == NULL) printf("cannot copy texture! error: %s", SDL_GetError());
+	else SDL_RenderCopy(gameM::renderer, texture, NULL, &dst);
+	
 }
 
 void image::renderscrolling(int offset) {

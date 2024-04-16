@@ -18,5 +18,6 @@ public:
 
 private:
 	image* bg;
-	image* button;
+	bool flag;
+	//image* button;
 };

@@ -20,6 +20,7 @@ mainCombat::mainCombat() {
 	 skillchoice = -1;
 	 enemychoice = -1;
 	 allychoice = -1;
+	 flag = false;
 }
 mainCombat::~mainCombat() {
 
@@ -97,22 +98,20 @@ void mainCombat::eventHandler(SDL_Event e) {
 			printf("next turn : character %i\n", currentturn + 1);
 			turntaken = true;
 		}
-	}	
+	}
+	if (e.type == SDL_KEYDOWN) {
+		flag = true;
+	}
 }
 
 void mainCombat::update() {
 	//start: running
 	//
-	if (turntaken == true) {
+	if (skillchoosen == true && enemychoosen == true && turntaken == true) {
 		if (enemy[enemychoice]->hp_getter() <= 0) {
 			enemy[enemychoice]->dead = true;
 			std::cout << "rip bozo" << std::endl;
 			enemychoice = -1;
-		}
-		if (ally[allychoice]->hp_getter() <= 0) {
-			ally[allychoice]->dead = true;
-			std::cout << "someone died" << std::endl;
-			allychoice = -1;
 		}
 		skillchoosen = false;
 		enemychoosen = false;
@@ -123,34 +122,16 @@ void mainCombat::update() {
 		std::cout << std::endl;
 		turntaken = false;
 	}
-	//for (int i = 0; i < 3; i++) {
-	//	if (enemy[i]->hurtstt_getter() == true) {
-	//		//i should be checking health first
-	//		//update health
-	//		printf("%i\n", enemy[i]->hp_getter());
-	//		
-	//		enemy[currentturn]->attacksttchange(false);
-	//		enemy[i]->hurtsttchange(false);
-	//		currentturn = (currentturn + 1) % 6;
-	//		
-	//	}
-	//}
-	//for (int i = 0; i < 3; i++) {
-	//	if (ally[i]->hurtstt_getter() == true) {
-	//		//i should be checking health first
-	//		//update health
-	//		printf("%i\n", ally[i]->hp_getter());
-	//		if (ally[i]->hp_getter() <= 0) {
-	//			ally[i]->dead = true;
-	//			
-	//		}
-	//		ally[currentturn]->attacksttchange(false);
-	//		ally[i]->hurtsttchange(false);
-	//		currentturn = (currentturn + 1) % 6;
-	//		skillchoosen = false;
-	//		enemychoosen = false;
-	//	}
-	//}
+	else if (turntaken == true) {
+		if (ally[allychoice]->hp_getter() <= 0) {
+			ally[allychoice]->dead = true;
+			std::cout << "someone died" << std::endl;
+			allychoice = -1;
+		}
+		currentturn = (currentturn + 1) % 6;
+		turntaken = false;
+	}
+	
 	bgOffset -= bgScrollSpeed;
 	if (bgOffset <= -SCREEN_WIDTH) {
 		bgOffset = 0;
@@ -198,5 +179,9 @@ void mainCombat::render() {
 }
 
 void mainCombat::clean() {
-
+	if (flag == true) {
+		gameM::current = gameM::main_menu;
+		flag = false;
+		SDL_RenderClear(gameM::renderer);
+	}
 }

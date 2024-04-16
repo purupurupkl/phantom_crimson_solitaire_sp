@@ -54,6 +54,9 @@
     <ClCompile Include="level1.cpp">
       <Filter>Source Files\states</Filter>
     </ClCompile>
+    <ClCompile Include="level2.cpp">
+      <Filter>Source Files\states</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
@@ -87,6 +90,9 @@
       <Filter>Header Files\states</Filter>
     </ClInclude>
     <ClInclude Include="level1.h">
+      <Filter>Header Files\states</Filter>
+    </ClInclude>
+    <ClInclude Include="level2.h">
       <Filter>Header Files\states</Filter>
     </ClInclude>
   </ItemGroup>
