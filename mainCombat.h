@@ -1,5 +1,5 @@
 #pragma once
-#include "gameM.h"
+//#include "gameM.h"
 #include "image.h"
 #include "textureLoader.h"
 #include "entity.h"
@@ -16,7 +16,7 @@ public:
 	virtual void eventHandler(SDL_Event e);
 
 	void update();
-	void render();
+	virtual void render();
 	void clean();
 	static int bgOffset;
 

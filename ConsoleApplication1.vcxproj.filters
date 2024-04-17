@@ -57,6 +57,12 @@
     <ClCompile Include="level2.cpp">
       <Filter>Source Files\states</Filter>
     </ClCompile>
+    <ClCompile Include="allyLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
@@ -94,6 +100,12 @@
     </ClInclude>
     <ClInclude Include="level2.h">
       <Filter>Header Files\states</Filter>
+    </ClInclude>
+    <ClInclude Include="allyLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writer.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

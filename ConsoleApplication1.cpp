@@ -1,5 +1,7 @@
 	
 #include "gameM.h"
+#include "entity.h"
+
 
 int main(int argc, char* argv[])
 {
@@ -13,9 +15,9 @@ int main(int argc, char* argv[])
 			}
 			game->update();
 			game->render();
-			game->clean();
+			
 		}
-		
+		game->clean();
 	}
 	
 	delete game;

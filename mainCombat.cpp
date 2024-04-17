@@ -1,5 +1,7 @@
 #include "mainCombat.h"
 #include "constants.h"
+#include "allyLoader.h"
+#include "writer.h"
 #include <ctime>
 int mainCombat::bgOffset = 0;
 mainCombat::mainCombat() {
@@ -29,9 +31,9 @@ void mainCombat::loadMedia() {
 	currentturn = 0;
 	bg = new image(0, 0);
 	bg->set_image(textureLoader::loadTexture("C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\desert.jpeg"));
-
+	allyLoader::get().realfren(ally);
 	for (int i = 0; i < 3; i++) {
-		ally[i] = new fren(1);
+		//ally[i] = new fren(1);
 		std::cout << ally[i]->sprite[1] << std::endl;	
 		ally[i]->loadEntityTexture();
 		ally[i]->set_rect(dst[i]);
@@ -43,7 +45,6 @@ void mainCombat::loadMedia() {
 		enemy[i]->set_rect(dst[i + 3]);
 	}
 	
-
 	//the numbers should be randomized from charSelect->loadmedia() and passed to maincombat->loadmedia 
 	//load character 1/2/3 at pos 1/2/3 
 	//charactercurrentstate = running (character will be running constantly when not fighting?)
@@ -53,24 +54,13 @@ void mainCombat::loadMedia() {
 }
 
 void mainCombat::eventHandler(SDL_Event e) {
-	//switch(e.type){
-	//	// when charactercurrentstate = encounter;
-	//	// case char1/2/3 touched
-	//	// drawmenu = true;
-	//	// case menu 1/2/3 touched 
-	//	// write "choose target" ** for later**
-	//	// case enemy 1/2/3 touched 
-
-	// turn based: press on ally -> ally chosen (like below); press on enemy, enemy chosen; press on another enemy: function changetarget()? on entity class/on combat class/on the vector class (vector of entity)
-	//}	
 	if (currentturn >= 3) {
-		skillchoice = /*enemy[currentturn - 3]->enemy_skill();*/ 1;
+		skillchoice = 1;
 		do {
 			allychoice = rand() % 3;
 		} while (ally[allychoice]->dead == true);
 		ally[allychoice]->attacked(enemy[currentturn - 3]->skill_cast(skillchoice));
 		std::cout << "ally " << allychoice << " was attacked,remaining health " << ally[allychoice]->hp_getter() << std::endl;
-		/*ally[allychoosen]->hurtsttchange(true);*/
 		turntaken = true;
 		printf("next turn : character %i\n", currentturn + 1);
 		//SDL_Delay(5000);
@@ -94,13 +84,10 @@ void mainCombat::eventHandler(SDL_Event e) {
 		}
 		if (skillchoosen == true && enemychoosen == true) {
 			enemy[enemychoice]->attacked(ally[currentturn]->skill_cast(skillchoice));
-			std::cout << "enemy " << enemychoice << " was `attacked,remaining health " << enemy[enemychoice]->hp_getter() << std::endl;
+			std::cout << "enemy " << enemychoice << " was attacked,remaining health " << enemy[enemychoice]->hp_getter() << std::endl;
 			printf("next turn : character %i\n", currentturn + 1);
 			turntaken = true;
 		}
-	}
-	if (e.type == SDL_KEYDOWN) {
-		flag = true;
 	}
 }
 
@@ -136,19 +123,18 @@ void mainCombat::update() {
 	if (bgOffset <= -SCREEN_WIDTH) {
 		bgOffset = 0;
 	}
-	
-	
 	//should the character state (idle,attack, run, dead) be updated here?
 	//gonna be one plethora of ifs huh
 }
 
 void mainCombat::render() {
 	// Clear the screen
+	SDL_Color cl = { 0x00,0xFF,0x00,0xFF };
+	
 	SDL_RenderClear(gameM::renderer);
 	bg->renderscrolling(mainCombat::bgOffset);
 
 	SDL_Rect outofscreen = { 0, 0, 0, 0 };  // i can't interact with it anymore with this
-	
 
 	for (int i = 0; i < 3; i++) {
 		if (ally[i]->dead == false) {
@@ -168,20 +154,9 @@ void mainCombat::render() {
 		}
 		else enemy[i]->renderEntity(outofscreen, 0);
 	}
-	// Render game objects, characters, backgrounds, etc.
-
-	//render scrolling backround when charactercurrentstate != encounter ?
-
-
-	//rendercharacter(int charactercurrentstate) will render character based on current state ???
-	// Present the rendered frame to the screen
 	SDL_RenderPresent(gameM::renderer);
 }
 
 void mainCombat::clean() {
-	if (flag == true) {
-		gameM::current = gameM::main_menu;
-		flag = false;
-		SDL_RenderClear(gameM::renderer);
-	}
+	
 }

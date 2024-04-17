@@ -3,7 +3,8 @@
 class level2 :
     public mainCombat
 {
-    level2() : mainCombat::mainCombat() {};
+public:
+    level2() : mainCombat() {};
     void loadMedia() override;
 };
 

@@ -24,7 +24,8 @@ public:
 	static int current;
 	static const int main_menu = 0;
 	static const int char_select = 1;
-	static const int main_combat = 2;
+	static const int stage1 = 2;
+	static const int stage2 = 3;
 private:
 	static bool quit;
 	SDL_Window* window;

@@ -6,5 +6,6 @@ class level1 :
 public:
     level1() : mainCombat() {};
     void loadMedia() override;
+    void eventHandler(SDL_Event e) override;
 };
 
