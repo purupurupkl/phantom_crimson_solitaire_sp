@@ -6,7 +6,7 @@ class writer
 {
 public:
 	static writer& get();
-	void loadText(std::string text, SDL_Color txtColor);
+	void loadText(std::string text, SDL_Color txtColor, SDL_Rect msg);
 	TTF_Font* font;
 private:
 	writer() {};
