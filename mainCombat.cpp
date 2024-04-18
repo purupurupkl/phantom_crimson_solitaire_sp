@@ -19,9 +19,9 @@ mainCombat::mainCombat() {
 	 enemychoosen = false;
 	 skillchoosen = false;
 	 turntaken = false;
-	 skillchoice = -1;
 	 enemychoice = -1;
 	 allychoice = -1;
+	 skillchoice = -1;
 	 flag = false;
 }
 mainCombat::~mainCombat() {
@@ -53,27 +53,33 @@ void mainCombat::loadMedia() {
 	// 
 }
 
-void mainCombat::eventHandler(SDL_Event e) {
+void mainCombat::eventHandler(SDL_Event e){
 	if (currentturn >= 3) {
-		skillchoice = 1;
-		do {
-			allychoice = rand() % 3;
-		} while (ally[allychoice]->dead == true);
-		ally[allychoice]->attacked(enemy[currentturn - 3]->skill_cast(skillchoice));
-		std::cout << "ally " << allychoice << " was attacked,remaining health " << ally[allychoice]->hp_getter() << std::endl;
-		turntaken = true;
+		if (enemy[currentturn]->dead == false) {
+			skillchoice = 1;
+			do {
+				allychoice = rand() % 3;
+			} while (ally[allychoice]->dead == true);
+			ally[allychoice]->attacked(enemy[currentturn - 3]->skill_cast(skillchoice));
+			std::cout << "ally " << allychoice << " was attacked,remaining health " << ally[allychoice]->hp_getter() << std::endl;
+			turntaken = true;
+		}
+		else currentturn = (currentturn + 1) % 6;
 		printf("next turn : character %i\n", currentturn + 1);
 		//SDL_Delay(5000);
 	}
 	else{
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
-			if (ally[currentturn]->anyskillchoosen()) {
-				skillchoice = ally[currentturn]->choose_skill();
-				skillchoosen = true;
+			if (skillchoosen == false) {
+				skillchoice = ally[currentturn]->availableSkill();
+				if (skillchoice != -1) {
+					skillchoosen = true;
+					ally[currentturn]->abi[skillchoice]->choosen = true;
+				}
 			}
 			else if (enemychoosen == false) {
 				for (int i = 0; i < 3; i++) {
-					if (enemy[i]->inside() && enemy[i]->dead == false){
+					if (enemy[i]->inside()){
 						std::cout << "enemy " << i << " choosen";
 						enemychoosen = true;
 						enemychoice = i;
@@ -94,37 +100,35 @@ void mainCombat::eventHandler(SDL_Event e) {
 void mainCombat::update() {
 	//start: running
 	//
-	if (skillchoosen == true && enemychoosen == true && turntaken == true) {
-		if (enemy[enemychoice]->hp_getter() <= 0) {
-			enemy[enemychoice]->dead = true;
-			std::cout << "rip bozo" << std::endl;
-			enemychoice = -1;
-		}
-		skillchoosen = false;
-		enemychoosen = false;
-		currentturn = (currentturn + 1) % 6;
+	if (turntaken == true) {
 		for (int i = 0; i < 3; i++) {
-			std::cout << std::endl << ally[i]->hp_getter() << " ";
+			ally[i]->update();
+			enemy[i]->update();			//update everyone
 		}
-		std::cout << std::endl;
-		turntaken = false;
-	}
-	else if (turntaken == true) {
-		if (ally[allychoice]->hp_getter() <= 0) {
-			ally[allychoice]->dead = true;
-			std::cout << "someone died" << std::endl;
-			allychoice = -1;
+		if (skillchoosen == true && enemychoosen == true) {           // ally turn taken
+			/*if(enemy[enemychoice]->dead == true)
+				std::cout << "rip bozo" << std::endl;*/
+			skillchoosen = false;
+			enemychoosen = false;
+			currentturn = (currentturn + 1) % 6;
+			enemychoice = -1;
+			turntaken = false;
 		}
-		currentturn = (currentturn + 1) % 6;
-		turntaken = false;
+		else {														//enemy turn taken
+			/*if (ally[allychoice]->dead == true) {
+				std::cout << "F" << std::endl;
+				allychoice = -1;
+			}*/
+			currentturn = (currentturn + 1) % 6;
+			turntaken = false;
+		}
 	}
-	
+
 	bgOffset -= bgScrollSpeed;
 	if (bgOffset <= -SCREEN_WIDTH) {
 		bgOffset = 0;
 	}
-	//should the character state (idle,attack, run, dead) be updated here?
-	//gonna be one plethora of ifs huh
+
 }
 
 void mainCombat::render() {
@@ -146,7 +150,7 @@ void mainCombat::render() {
 		}
 		else ally[i]->renderEntity(outofscreen, 0);
 		if (enemy[i]->dead == false) {
-			if (i == currentturn) {
+			if (i + 3 == currentturn) {
 				enemy[i]->renderEntity(1);
 				enemy[i]->renderSkill();
 			}
