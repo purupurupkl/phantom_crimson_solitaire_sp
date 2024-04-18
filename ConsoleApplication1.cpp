@@ -5,10 +5,15 @@
 
 int main(int argc, char* argv[])
 {
+	int fps = 60;
+	Uint32 elapsed = 0;
+	int frametime = 0;
+
 	gameM* game = new gameM();
 	if (game->init()) {
 		game->loadMedia();
 		while (!gameM::quitgame()) {
+			elapsed = SDL_GetTicks();
 			SDL_Event e;
 			while (SDL_PollEvent(&e)) {
 				game->eventHandler(e);
@@ -16,6 +21,8 @@ int main(int argc, char* argv[])
 			game->update();
 			game->render();
 			
+			frametime = SDL_GetTicks() - elapsed;
+			if (1000 / fps > frametime) SDL_Delay((1000 / fps) - frametime);
 		}
 		game->clean();
 	}
