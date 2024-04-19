@@ -19,6 +19,7 @@ public:
 	void update();
 	void render();
 	void clean();
+	static bool flag;
 	static bool quitgame();
 	static SDL_Renderer* renderer;
 	static int current;

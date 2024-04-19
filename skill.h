@@ -1,5 +1,4 @@
 #pragma once
-#include "image.h"
 class skill
 {
 public:
