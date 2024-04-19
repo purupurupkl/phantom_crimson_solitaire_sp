@@ -1,16 +1,17 @@
 	
 #include "gameM.h"
 #include "entity.h"
-
+#include "allyLoader.h";
 
 int main(int argc, char* argv[])
 {
-	int fps = 60;
+	int fps = 24;
 	Uint32 elapsed = 0;
 	int frametime = 0;
 
 	gameM* game = new gameM();
-	if (game->init()) {
+	if (game->init()) {	
+		allyLoader::get().initAlly();
 		game->loadMedia();
 		while (!gameM::quitgame()) {
 			elapsed = SDL_GetTicks();
@@ -18,13 +19,13 @@ int main(int argc, char* argv[])
 			while (SDL_PollEvent(&e)) {
 				game->eventHandler(e);
 			}
-			game->update();
 			game->render();
-			
+			game->update();
+			game->clean();
 			frametime = SDL_GetTicks() - elapsed;
 			if (1000 / fps > frametime) SDL_Delay((1000 / fps) - frametime);
 		}
-		game->clean();
+		
 	}
 	
 	delete game;

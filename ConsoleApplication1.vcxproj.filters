@@ -69,6 +69,9 @@
     <ClCompile Include="entityData.cpp">
       <Filter>Source Files\entities</Filter>
     </ClCompile>
+    <ClCompile Include="booster.cpp">
+      <Filter>Source Files\states</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
@@ -115,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="skill.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="booster.h">
+      <Filter>Header Files\states</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
