@@ -17,7 +17,6 @@ public:
 	void clean();
 
 private:
-	image* bg;
-	bool flag;
+	SDL_Texture* bg;
 	//image* button;
 };

@@ -7,14 +7,14 @@ int mainCombat::bgOffset = 0;
 mainCombat::mainCombat() {
 	//all these rects and chars should be put in vectors or something
 	srand(time(0));
-	 dst[0] = {100, 300, 90, 90};
-	 dst[1] = { 100, 500, 90, 90 };
-	 dst[2] = { 200, 400, 90, 90 };
+	 dst[0] = { 100, 300, 200, 200};
+	 dst[1] = { 150, 350, 200, 200 };
+	 dst[2] = { 100, 400, 200, 200 };
 
 
-	 dst[3] = { 1000, 300, 90, 90 };
-	 dst[4] = {1000, 500, 90, 90};
-	 dst[5] = {950, 400, 90, 90};
+	 dst[3] = {300, 300, 200, 200 };
+	 dst[4] = {250, 350, 200, 200};
+	 dst[5] = {300, 400, 200, 200};
 	 currentturn = 0;
 	 enemychoosen = false;
 	 skillchoosen = false;
@@ -22,15 +22,16 @@ mainCombat::mainCombat() {
 	 enemychoice = -1;
 	 allychoice = -1;
 	 skillchoice = -1;
-	 flag = false;
+	 //flag = false;
 }
 mainCombat::~mainCombat() {
 
 }
 void mainCombat::loadMedia() {
 	currentturn = 0;
-	bg = new image(0, 0);
-	bg->set_image(textureLoader::loadTexture("C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\desert.jpeg"));
+	bg = IMG_LoadTexture(gameM::renderer, "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\desert.jpeg");
+	//bg = new image(0, 0);
+	//bg->set_image(loader::loadTexture("C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\desert.jpeg"));
 	allyLoader::get().realfren(ally);
 	for (int i = 0; i < 3; i++) {
 		//ally[i] = new fren(1);
@@ -44,18 +45,11 @@ void mainCombat::loadMedia() {
 		enemy[i]->loadEntityTexture();
 		enemy[i]->set_rect(dst[i + 3]);
 	}
-	
-	//the numbers should be randomized from charSelect->loadmedia() and passed to maincombat->loadmedia 
-	//load character 1/2/3 at pos 1/2/3 
-	//charactercurrentstate = running (character will be running constantly when not fighting?)
-	// 
-	// basicallythe idea is to load EVERY SINGLE IMAGE into a container and draw them to the screen when needed 
-	// 
 }
 
 void mainCombat::eventHandler(SDL_Event e){
 	if (currentturn >= 3) {
-		if (enemy[currentturn]->dead == false) {
+		if (enemy[currentturn - 3]->dead == false) {
 			skillchoice = 1;
 			do {
 				allychoice = rand() % 3;
@@ -74,7 +68,7 @@ void mainCombat::eventHandler(SDL_Event e){
 				skillchoice = ally[currentturn]->availableSkill();
 				if (skillchoice != -1) {
 					skillchoosen = true;
-					ally[currentturn]->abi[skillchoice]->choosen = true;
+					ally[currentturn]->abi[skillchoice].choosen = true;
 				}
 			}
 			else if (enemychoosen == false) {
@@ -123,42 +117,52 @@ void mainCombat::update() {
 			turntaken = false;
 		}
 	}
-
-	bgOffset -= bgScrollSpeed;
-	if (bgOffset <= -SCREEN_WIDTH) {
-		bgOffset = 0;
+	int deadcount = 0;
+	for (int i = 0; i < 3; i++) {
+		if (enemy[i]->dead == true) deadcount++;
 	}
-
+	if (deadcount == 3) gameM::flag = true;
 }
 
 void mainCombat::render() {
-	// Clear the screen
 	SDL_Color cl = { 0x00,0xFF,0x00,0xFF };
-	
-	SDL_RenderClear(gameM::renderer);
-	bg->renderscrolling(mainCombat::bgOffset);
-
-	SDL_Rect outofscreen = { 0, 0, 0, 0 };  // i can't interact with it anymore with this
-
-	for (int i = 0; i < 3; i++) {
-		if (ally[i]->dead == false) {
-			if (i == currentturn) {
-				ally[i]->renderEntity(1);
-				ally[i]->renderSkill();	
+	for (int j = 0; j < 40; j++) {
+		SDL_RenderClear(gameM::renderer);
+		SDL_Rect bgsc = { 0,0,600, 825 };
+		SDL_RenderCopy(gameM::renderer, bg, &bgsc, NULL);
+		SDL_Rect outofscreen = { 0, 0, 0, 0 };  // i can't interact with it anymore with this
+		for (int i = 0; i < 3; i++) {
+			if (ally[i]->dead == false) {
+				if (i == currentturn) {
+					if (turntaken == true) {
+						ally[i]->aniEntity(1, j / 2);
+					}
+					else ally[i]->renderEntity(dst[i], 0); //????
+					ally[i]->renderSkill();
+				}
+				else ally[i]->renderEntity(0);
+				ally[i]->renderHealth(dst[i]);
 			}
-			else ally[i]->renderEntity(0);
-		}
-		else ally[i]->renderEntity(outofscreen, 0);
-		if (enemy[i]->dead == false) {
-			if (i + 3 == currentturn) {
-				enemy[i]->renderEntity(1);
-				enemy[i]->renderSkill();
+			else ally[i]->renderEntity(outofscreen, 0);
+			if (enemy[i]->dead == false) {
+				if (i + 3 == currentturn) {
+					enemy[i]->renderEntity(dst[i + 3], 1);
+					enemy[i]->renderSkill();
+				}
+				else enemy[i]->renderEntity(0);
+				enemy[i]->renderHealth(dst[i + 3]);
 			}
-			else enemy[i]->renderEntity(0);
+			else {
+				enemy[i]->renderEntity(outofscreen, 0);
+			}
 		}
-		else enemy[i]->renderEntity(outofscreen, 0);
+		SDL_RenderPresent(gameM::renderer);
 	}
-	SDL_RenderPresent(gameM::renderer);
+		/*ally[0]->renderEntity(1, i);
+		ally[1]->renderEntity(1, i);
+		ally[2]->renderEntity(1, i);
+		SDL_RenderPresent(gameM::renderer);*/
+	//}
 }
 
 void mainCombat::clean() {

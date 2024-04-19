@@ -17,10 +17,10 @@ public:
 
 	void update();
 	virtual void render();
-	void clean();
+	virtual void clean();
 	static int bgOffset;
 
-	image* bg;
+	SDL_Texture* bg;
 	//3 enemies, 3 allies
 	fren* ally[3];
 	mob* enemy[3];// 6 characters...
@@ -32,6 +32,7 @@ public:
 	int skillchoice;
 	int enemychoice;
 	int allychoice;
-	bool flag;
+	int frame;
+	//bool flag;
 };
 
