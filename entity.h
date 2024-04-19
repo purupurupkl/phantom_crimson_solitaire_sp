@@ -24,15 +24,17 @@ public:
 	void loadEntityTexture();
 	void renderEntity(SDL_Rect dst, int act);
 	void renderEntity(int act);
+	void aniEntity(int act,int frame);
 	void renderSkill();
+	void renderHealth(SDL_Rect dst);
 	void set_rect(SDL_Rect& rect);
 	bool inside();
-	
+		
 	entityData stats;
-	skill* abi[2];
+	skill abi[2];
 	std::string sprite[2];
-	image stance[2];
-	image skillImg[2];
+	image* stance[2];
+	image* skillImg[2];
 	int skillchoice;
 };
 
@@ -42,7 +44,7 @@ class fren :
 public:
 	using entity::entity;
 	fren(int ID) : entity::entity(ID) {};
-    //~fren();
+    ~fren();
 	void statusUpdate();	
 	int availableSkill();
 };
@@ -52,6 +54,6 @@ class mob :
 {
 public:
     mob(int ID) : entity::entity(ID) {};
+	~mob();
     int mob_skill();
-
 };

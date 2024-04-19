@@ -5,20 +5,24 @@
 #include "writer.h"
 entity::entity() {};
 entity::entity(int ID) {	
-	abi[0] = new skill();
-	abi[1] = new skill();
+	//abi[0] = new skill();
+	//abi[1] = new skill();
+	stance[0] = new image();
+	stance[1] = new image();
+	skillImg[0] = new image();
+	skillImg[1] = new image();
 	//if id = 1 create djeeta, 2 is cag 3 is zeta
 	switch (ID) {
 		case 1:
-			stats = characterStats::DjeetaStats;
+			stats = characterStats::KkrStats;
 			for (int i = 0; i < 2; i++) {
-			sprite[i] = characterImage::Djeeta[i];
-			skillImg[i].set_image(textureLoader::loadTexture(skillImage::Zeta[i].c_str()));
+			sprite[i] = characterImage::Kkr[i];
+			skillImg[i]->set_image(loader::loadTexture(skillImage::Zeta[i]));
 			}
-			*abi[0] = skillStats::base;
-			*abi[1] = skillStats::Zeta_s2;
+			abi[0] = skillStats::base;
+			abi[1] = skillStats::Zeta_s2;
 			break;
-		case 2:
+		/*case 2:
 			stats = characterStats::CagliostroStats;
 			for (int i = 0; i < 2; i++) {
 			sprite[i] = characterImage::Cagliostro[i];
@@ -35,23 +39,22 @@ entity::entity(int ID) {
 			}
 			*abi[0] = skillStats::base;
 			*abi[1] = skillStats::Zeta_s2;
-			break;
+			break;*/
 		case -1:
 			stats = characterStats::DogStats;
 			for (int i = 0; i < 2; i++) {
 			sprite[i] = characterImage::Dog[i];
-			skillImg[i].set_image(textureLoader::loadTexture(skillImage::Zeta[i].c_str()));
+			skillImg[i]->set_image(loader::loadTexture(skillImage::Zeta[i]));
 			}
-			*abi[0] = skillStats::base;
-			*abi[1] = skillStats::Zeta_s2;
+			abi[0] = skillStats::base;
+			abi[1] = skillStats::Zeta_s2;
 			break;
 	}
 	std::cout << stats.atk << " " << stats.name << std::endl;
 	dead = false;
-	SDL_Rect s1 = { 600, 50, 50, 50 };
-	SDL_Rect s2 = { 800, 50, 50, 50 };
-	skillImg[0].set_imagepos(s1);
-	skillImg[1].set_imagepos(s2);
+	SDL_Rect msg[2] = { {400, 725, 50, 50},{500, 725, 50, 50} };
+	skillImg[0]->set_imagepos(msg[0]);
+	skillImg[1]->set_imagepos(msg[1]);
 }
 entity::~entity() {
 
@@ -65,8 +68,8 @@ double entity::hp_getter() {
 
 int fren::availableSkill() {
 	for (int i = 0; i < 2; i++) {
-		if (skillImg[i].inside()) {
-			if (abi[i]->cooldown == 0) return i;
+		if (skillImg[i]->inside()) {
+			if (abi[i].cooldown == 0) return i;
 			else return -1;
 		}
 	}
@@ -74,33 +77,33 @@ int fren::availableSkill() {
 }
 double entity::skill_cast(int i) {
 	double mult = 1;
-	if (i != -1) mult = abi[i]->multiplier;
+	if (i != -1) mult = abi[i].multiplier;
 	return stats.atk*mult;
 }
 void entity::update() {
 	if (stats.hp <= 0) dead = true;
 	for (int i = 0; i < 2; i++) {
-		if (abi[i]->choosen == true) {
-			abi[i]->cooldown = abi[i]->cd;
-			std::cout << "cooldown " << i << " is now " << abi[i]->cooldown << " from " << abi[i]->cd << std::endl;
-			abi[i]->choosen = false;
+		if (abi[i].choosen == true) {
+			abi[i].cooldown = abi[i].cd;
+			std::cout << "cooldown " << i << " is now " << abi[i].cooldown << " from " << abi[i].cd << std::endl;
+			abi[i].choosen = false;
 		}
-		else if (abi[i]->cooldown > 0) {
-			abi[i]->cooldown--;
-			std::cout << "after cooldown " << i << " is now " << abi[i]->cooldown << " from " << abi[i]->cd << std::endl;
+		else if (abi[i].cooldown > 0) {
+			abi[i].cooldown--;
+			std::cout << "after cooldown " << i << " is now " << abi[i].cooldown << " from " << abi[i].cd << std::endl;
 		}
 	}
 }
 
 void entity::set_rect(SDL_Rect& rect) {
-	stance[0].set_imagepos(rect);
-	stance[1].set_imagepos(rect);
+	stance[0]->set_imagepos(rect);
+	stance[1]->set_imagepos(rect);
 }
 void entity::loadEntityTexture() {
 	//load texture SOURCE (file name) from entityImage
 	// should i just drop that ? 
 	for (int i = 0; i < 2; i++) {
-		stance[i].set_image(textureLoader::loadTexture(sprite[i].c_str()));
+		stance[i]->set_image(loader::loadTexture(sprite[i]));
 	}
 }
 void entity::renderEntity(SDL_Rect dst, int act) {
@@ -109,37 +112,58 @@ void entity::renderEntity(SDL_Rect dst, int act) {
 		idle,
 		atk
 	};
-	stance[act].render(dst);
+	stance[act]->render(dst);
 }
-void entity::renderEntity(int act) {
+void entity::renderEntity(int act){
 	enum {
 		idle,
 		atk
 	};
-	stance[act].autorender();
+	stance[act]->autorender();
+}
+void entity::aniEntity(int act, int frame) {
+	enum {
+		idle,
+		atk
+	};
+	stance[act]->autoanimate(frame);
 }
 void entity::renderSkill(){
-	SDL_Rect board = { 200 ,0, 800, 200 };
+	SDL_Rect board = { 15 ,625, 550, 200 };
 	SDL_RenderFillRect(gameM::renderer, &board);
-	SDL_Rect msg[2] = { {612, 63, 25, 25},{812, 63, 25, 25} };
+	SDL_Rect msg[2] = { {400, 725, 50, 50},{500, 725, 50, 50} };
 	for (int i = 0; i < 2; i++) {
-		skillImg[i].autorender();
-		skillImg[i].set_alpha(100);
-		writer::get().loadText(std::to_string(abi[i]->cooldown), { 0xFF,0xFF,0xFF,0xFF }, msg[i]);
+		skillImg[i]->render(msg[i]);
+		skillImg[i]->set_alpha(100);
+		writer::get().loadText(std::to_string(abi[i].cooldown), { 0xFF,0xFF,0xFF,0xFF }, msg[i]);
 	}
-	
+	std::string health = "HP: " + std::to_string(stats.hp) + "/" + std::to_string(stats.maxhp);
+	SDL_Rect msghp = { 100, 725, 100, 50 };
+	writer::get().loadText(health, { 0xFF,0xFF,0xFF,0xFF }, msghp);
+}
+void entity::renderHealth(SDL_Rect dst){
+	std::string health = std::to_string(stats.hp) + "/" + std::to_string(stats.maxhp);
+	SDL_Rect hpbox = { dst.x, dst.y - 50, 50 , 20 };
+	writer::get().loadText(health, { 0xFF,0xFF,0xFF,0xFF }, hpbox);
 }
 bool entity::inside() {
-	//int x, y;
-	//SDL_GetMouseState(&x, &y);
-	//SDL_Rect mousenow = { x,y,1,1 };
-	//bool inside = SDL_HasIntersection(&mousenow, &pos);
-	//return inside;
-	return (stance[0].inside() || stance[1].inside());
+	return (stance[0]->inside() || stance[1]->inside());
 }
 int mob::mob_skill() {
 	return 1;
 }
+mob::~mob() {
+	/*for (int i = 0; i < 2; i++) {
+		delete stance[i];
+		delete skillImg[i];
+	}*/
+}
 void fren::statusUpdate() {
 
+}
+fren::~fren() {
+	for (int i = 0; i < 2; i++) {
+		delete stance[i];
+		delete skillImg[i];
+	}
 }
