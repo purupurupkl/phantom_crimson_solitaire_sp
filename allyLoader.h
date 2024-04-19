@@ -7,8 +7,9 @@ public:
 	void initAlly();
 	void realfren(fren* ally[3]);
 	void allUpdate();
-private:
 	fren* rAlly[3];
+private:
+	
 	allyLoader() {};
 	static allyLoader cally;
 };
