@@ -8,9 +8,9 @@
 //    //std::string attacking;
 //};
 namespace characterImage {
-    std::string Zeta[2]{
-        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\zetaidle2.png",
-        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\zetaatk2.png"
+    std::string Kkr[2]{
+        "C:\\Users\\HUYBUIAN\\Downloads\\105931_0_24_044.png",
+        "C:\\Users\\HUYBUIAN\\Downloads\\sprite_sheet (2).png"
     };
     std::string Cagliostro[2]{
         "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\zetaidle2.png",
@@ -21,8 +21,8 @@ namespace characterImage {
         "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\zetaatk2.png"
     };
     std::string Dog[2]{
-        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\dog.jpg",
-        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\dog.jpg"
+        "C:\\Users\\HUYBUIAN\\Downloads\\105931_0_24_044.png",
+        "C:\\Users\\HUYBUIAN\\Downloads\\105931_0_24_044.png"
     };
 }
 namespace skillImage {
