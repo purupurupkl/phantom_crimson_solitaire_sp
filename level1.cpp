@@ -2,8 +2,8 @@
 #include "allyLoader.h"
 void level1::loadMedia() {
 	currentturn = 0;
-	bg = new image(0, 0);
-	bg->set_image(textureLoader::loadTexture("C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\desert.jpeg"));
+	bg = IMG_LoadTexture(gameM::renderer, "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\desert.jpeg");
+	//bg->set_imagepos();
 	allyLoader::get().realfren(ally);
 	for (int i = 0; i < 3; i++) {
 		ally[i]->loadEntityTexture();
@@ -24,7 +24,8 @@ void level1::eventHandler(SDL_Event e) {
 					allychoice = rand() % 3;
 				} while (ally[allychoice]->dead == true);
 				ally[allychoice]->attacked(enemy[currentturn - 3]->skill_cast(skillchoice));
-				std::cout << "ally " << allychoice << " was attacked,remaining health " << ally[allychoice]->hp_getter() << std::endl;
+				std::cout << "ally " << allychoice << " was attacked,remaining health " << ally[allychoice]->hp_getter() << std::endl;	
+				std::cout << allyLoader::get().rAlly[allychoice]->hp_getter() << " HP OF TRUE FRIEND " << std::endl;
 			}
 		turntaken = true;
 		printf("next turn : character %i\n", (currentturn + 1) % 6);
@@ -52,7 +53,7 @@ void level1::eventHandler(SDL_Event e) {
 			}
 		}
 		if (skillchoosen == true && enemychoosen == true) {
-			ally[currentturn]->abi[skillchoice]->choosen = true;
+			ally[currentturn]->abi[skillchoice].choosen = true;
 			enemy[enemychoice]->attacked(ally[currentturn]->skill_cast(skillchoice));
 			std::cout << "enemy " << enemychoice << " was attacked,remaining health " << enemy[enemychoice]->hp_getter() << std::endl;
 			printf("next turn : character %i\n", (currentturn + 1) % 6);
@@ -60,42 +61,57 @@ void level1::eventHandler(SDL_Event e) {
 		}
 	
 };
+void level1::render() {
+	SDL_Color cl = { 0x00,0xFF,0x00,0xFF };
+	for (int j = 0; j < 40; j++) {
+		SDL_RenderClear(gameM::renderer);
+		SDL_Rect bgsc = { 0,0,600, 825 };
+		SDL_RenderCopy(gameM::renderer, bg, &bgsc, NULL);
+		SDL_Rect outofscreen = { 0, 0, 0, 0 };  // i can't interact with it anymore with this
+		for (int i = 0; i < 3; i++) {
+			if (ally[i]->dead == false) {
+				if (i == currentturn) {
+					if (turntaken == true) {
+						ally[i]->aniEntity(1, j / 2);
+					}
+					else ally[i]->renderEntity(dst[i], 0); //????
+					ally[i]->renderSkill();
+				}
+				else ally[i]->renderEntity(0);
+				ally[i]->renderHealth(dst[i]);
+			}
+			else ally[i]->renderEntity(outofscreen, 0);
+			if (enemy[i]->dead == false) {
+				if (i + 3 == currentturn) {
+					enemy[i]->renderEntity(dst[i + 3], 1);
+				}
+				else enemy[i]->renderEntity(0);
+				enemy[i]->renderHealth(dst[i + 3]);
+			}
+			else {
+				enemy[i]->renderEntity(outofscreen, 0);
+			}
+		}
+		SDL_RenderPresent(gameM::renderer);
+	}
+		/*ally[0]->renderEntity(1, i);
+		ally[1]->renderEntity(1, i);
+		ally[2]->renderEntity(1, i);
+		SDL_RenderPresent(gameM::renderer);*/
+		//}
+}
+void level1::clean() {
+	if (gameM::flag == true) {
+		SDL_DestroyTexture(bg);
+		bg = NULL;
+		/*for (int i = 0; i < 3; i++) {
+			enemy[i]->~mob();
+			ally[i]->~fren();
+			delete enemy[i];
+			delete ally[i];
+			
+		}*/
+		gameM::current = gameM::stage2;
+	}
 
-//void level1::render() {
-//	SDL_RenderClear(gameM::renderer);
-//	bg->renderscrolling(mainCombat::bgOffset);
-//
-//	SDL_Rect outofscreen = { 0, 0, 0, 0 };  // i can't interact with it anymore with this
-//	for (int i = 0; i < 3; i++) {
-//		if (ally[i]->dead == false) {
-//			if (i == currentturn) {
-//				ally[i]->renderEntity(1);
-//				ally[i]->renderSkill();
-//			}
-//			else ally[i]->renderEntity(0);
-//		}
-//		else ally[i]->renderEntity(outofscreen, 0);
-//		if (enemy[i]->dead == false) {
-//			if (i == currentturn) {
-//				enemy[i]->renderEntity(1);
-//				enemy[i]->renderSkill();
-//			}
-//			else enemy[i]->renderEntity(0);
-//		}
-//		else enemy[i]->renderEntity(outofscreen, 0);
-//	}
-//	// Render game objects, characters, backgrounds, etc.
-//
-//	//render scrolling backround when charactercurrentstate != encounter ?
-//
-//	//rendercharacter(int charactercurrentstate) will render character based on current state ???
-//	// Present the rendered frame to the screen
-//	SDL_RenderPresent(gameM::renderer);
-//	if (flag == true) {
-//		gameM::current = gameM::main_menu;
-//		flag = false;
-//		SDL_RenderClear(gameM::renderer);
-//	}
-//	
-//	
-//}
+}
