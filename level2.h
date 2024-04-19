@@ -6,5 +6,5 @@ class level2 :
 public:
     level2() : mainCombat() {};
     void loadMedia() override;
+    void render() override;
 };
-
