@@ -63,6 +63,12 @@
     <ClCompile Include="writer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="skill.cpp">
+      <Filter>Source Files\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="entityData.cpp">
+      <Filter>Source Files\entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
@@ -105,6 +111,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="writer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="skill.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -17,27 +17,45 @@ void level1::loadMedia() {
 	}
 }
 void level1::eventHandler(SDL_Event e) {
-	std::cout << "overriding eventhandler" << std::endl;
-		if (e.type == SDL_MOUSEBUTTONDOWN) {
-			if (ally[currentturn]->anyskillchoosen()) {
-				skillchoice = ally[currentturn]->choose_skill();
-				skillchoosen = true;
+		if (currentturn >= 3) {
+			if (/*enemy[currentturn - 3]->dead == false*/true ) {
+				skillchoice = 1;
+				do {
+					allychoice = rand() % 3;
+				} while (ally[allychoice]->dead == true);
+				ally[allychoice]->attacked(enemy[currentturn - 3]->skill_cast(skillchoice));
+				std::cout << "ally " << allychoice << " was attacked,remaining health " << ally[allychoice]->hp_getter() << std::endl;
 			}
-			else if (enemychoosen == false) {
-				for (int i = 0; i < 3; i++) {
-					if (enemy[i]->inside() && enemy[i]->dead == false) {
-						std::cout << "enemy " << i << " choosen";
-						enemychoosen = true;
-						enemychoice = i;
-						break;
+		turntaken = true;
+		printf("next turn : character %i\n", (currentturn + 1) % 6);
+		//SDL_Delay(5000);
+		}
+		else {
+			if (e.type == SDL_MOUSEBUTTONDOWN) {
+				if (skillchoosen == false || ally[currentturn]->availableSkill() != -1) {
+					skillchoice = ally[currentturn]->availableSkill();
+					if (skillchoice != -1) {
+						skillchoosen = true;
+						std::cout << "skill choosen: " << skillchoice << std::endl;
+					}
+				}
+				else if (enemychoosen == false) {
+					for (int i = 0; i < 3; i++) {
+						if (enemy[i]->inside() && enemy[i]->dead == false) {
+							std::cout << "enemy " << i << " choosen";
+							enemychoosen = true;
+							enemychoice = i;
+							break;
+						}
 					}
 				}
 			}
 		}
 		if (skillchoosen == true && enemychoosen == true) {
+			ally[currentturn]->abi[skillchoice]->choosen = true;
 			enemy[enemychoice]->attacked(ally[currentturn]->skill_cast(skillchoice));
-			std::cout << "enemy " << enemychoice << " was `attacked,remaining health " << enemy[enemychoice]->hp_getter() << std::endl;
-			printf("next turn : character %i\n", currentturn + 1);
+			std::cout << "enemy " << enemychoice << " was attacked,remaining health " << enemy[enemychoice]->hp_getter() << std::endl;
+			printf("next turn : character %i\n", (currentturn + 1) % 6);
 			turntaken = true;
 		}
 	

@@ -4,6 +4,7 @@
 #include "level2.h"
 #include "level1.h"
 #include "constants.h"
+#include "writer.h"
 mainMenu* mainmenu = new mainMenu();
 charSelect* charselect = new charSelect();
 //mainCombat* maincombat;
@@ -46,6 +47,8 @@ bool gameM::init() {
 		if (TTF_Init() == -1) {
 			std::cout << "cant init ttf, " << TTF_GetError() << std::endl;
 		}
+		writer::get().font = TTF_OpenFont("D:\\vslib\\SDL2_ttf-2.22.0\\Arial.ttf", 12);
+
 		
 	}
 	return status;

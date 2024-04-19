@@ -140,12 +140,14 @@
     <ClCompile Include="charSelect.cpp" />
     <ClCompile Include="ConsoleApplication1.cpp" />
     <ClCompile Include="entity.cpp" />
+    <ClCompile Include="skill.cpp" />
     <ClCompile Include="gameM.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="level1.cpp" />
     <ClCompile Include="level2.cpp" />
     <ClCompile Include="mainCombat.cpp" />
     <ClCompile Include="mainMenu.cpp" />
+    <ClCompile Include="entityData.cpp" />
     <ClCompile Include="textureLoader.cpp" />
     <ClCompile Include="writer.cpp" />
   </ItemGroup>
@@ -161,6 +163,7 @@
     <ClInclude Include="level2.h" />
     <ClInclude Include="mainCombat.h" />
     <ClInclude Include="mainMenu.h" />
+    <ClInclude Include="skill.h" />
     <ClInclude Include="textureLoader.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="writer.h" />

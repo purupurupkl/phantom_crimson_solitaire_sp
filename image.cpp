@@ -50,7 +50,6 @@ void image::render(SDL_Rect dst) {
 	else SDL_RenderCopy(gameM::renderer, texture, NULL, &dst);
 	
 }
-
 void image::renderscrolling(int offset) {
 	rect.x = offset;
 	rect.y = 0;
