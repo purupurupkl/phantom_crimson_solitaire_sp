@@ -7,7 +7,8 @@ public:
     level1() : mainCombat() {};
     void loadMedia() override;
     void eventHandler(SDL_Event e) override;
-    void clean() override;
+    void update() override;
     void render() override;
+    void clean() override;
+    
 };
-

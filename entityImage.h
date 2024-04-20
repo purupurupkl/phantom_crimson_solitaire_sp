@@ -9,7 +9,7 @@
 //};
 namespace characterImage {
     std::string Kkr[2]{
-        "C:\\Users\\HUYBUIAN\\Downloads\\105931_0_24_044.png",
+        "C:\\Users\\HUYBUIAN\\Downloads\\sprite_sheet (3).png",
         "C:\\Users\\HUYBUIAN\\Downloads\\sprite_sheet (2).png"
     };
     std::string Cagliostro[2]{

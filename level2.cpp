@@ -3,10 +3,10 @@
 void level2::loadMedia() {
 		currentturn = 0;
 		bg = IMG_LoadTexture(gameM::renderer, "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\redder.jpeg");
-		allyLoader::get().realfren(ally);
+		//allyLoader::get().realfren(ally);
 		std::cout << " loaded level 2 " << std::endl;
 		for (int i = 0; i < 3; i++) {
-			//ally[i] = new fren(1);
+			ally[i] = new fren(1);
 			ally[i]->loadEntityTexture();
 			ally[i]->set_rect(dst[i]);
 			std::cout << ally[i]->hp_getter() << std::endl;
@@ -17,9 +17,13 @@ void level2::loadMedia() {
 			enemy[i]->set_rect(dst[i + 3]);
 		}
 };
+void level2::eventHandler(SDL_Event e){
+
+}
+void level2::update(){}
 void level2::render() {
 	SDL_Color cl = { 0x00,0xFF,0x00,0xFF };
-	for (int j = 0; j < 40; j++) {
+
 		SDL_RenderClear(gameM::renderer);
 		SDL_Rect bgsc = { 0,0,600, 825 };
 		SDL_RenderCopy(gameM::renderer, bg, &bgsc, NULL);
@@ -28,7 +32,7 @@ void level2::render() {
 			if (ally[i]->dead == false) {
 				if (i == currentturn) {
 					if (turntaken == true) {
-						ally[i]->aniEntity(1, j / 2);
+						ally[i]->aniEntity(1);
 					}
 					else ally[i]->renderEntity(dst[i], 0); //????
 					ally[i]->renderSkill();
@@ -49,7 +53,7 @@ void level2::render() {
 			}
 		}
 		SDL_RenderPresent(gameM::renderer);
-	}
+	
 	/*ally[0]->renderEntity(1, i);
 	ally[1]->renderEntity(1, i);
 	ally[2]->renderEntity(1, i);

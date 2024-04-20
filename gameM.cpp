@@ -3,6 +3,7 @@
 #include "charSelect.h"
 #include "level2.h"
 #include "level1.h"
+#include "booster.h"
 #include "constants.h"
 #include "writer.h"
 mainMenu* mainmenu = new mainMenu();
@@ -10,6 +11,7 @@ charSelect* charselect = new charSelect();
 //mainCombat* maincombat;
 level2* leveltwo = new level2();
 level1* levelone = new level1();
+booster* boost1 = new booster();
 int gameM::current = gameM::stage1;
 bool gameM::quit = false;
 bool gameM::flag = true;
@@ -65,10 +67,14 @@ void gameM::loadMedia() {
 			break;
 		case stage1:
 			if (gameM::flag == true) levelone->loadMedia();
-			//gameM::flag = false;
-			//break;
+			gameM::flag = false;
+			break;
 		case stage2:
 			if (gameM::flag == true) leveltwo->loadMedia();
+			gameM::flag = false;
+			break;
+		case after1:
+			if (gameM::flag == true) boost1->loadMedia();
 			gameM::flag = false;
 			break;
 	}
@@ -90,6 +96,9 @@ void gameM::eventHandler(SDL_Event& e) {
 	case stage1:
 		levelone->eventHandler(e);
 		break;
+	case after1:
+		boost1->eventHandler(e);
+		break;
 	case stage2:
 		leveltwo->eventHandler(e);
 		break;
@@ -105,6 +114,9 @@ void gameM::update() {
 		break;
 	case stage1:
 		/*maincombat*/ levelone->update();
+		break;
+	case after1:
+		boost1->update();
 		break;
 	case stage2:
 		/*maincombat*/ leveltwo->update();
@@ -122,6 +134,9 @@ void gameM::render() {
 	case stage1:
 		/*maincombat*/levelone->render();
 		break;
+	case after1:
+		boost1->render();
+		break;
 	case stage2:
 		leveltwo->render();
 		break;
@@ -138,6 +153,9 @@ void gameM::clean() {
 		break;
 	case stage1:
 		/*maincombat*/levelone->clean();
+		break;
+	case after1:
+		boost1->clean();
 		break;
 	case stage2:
 		leveltwo->clean();
