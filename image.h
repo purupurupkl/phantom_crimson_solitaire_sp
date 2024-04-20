@@ -18,7 +18,7 @@ public:
 
 	void set_alpha(Uint8 alpha);
 	void autorender();
-	void autoanimate(/*int frame*/);
+	void autoanimate(int frame);
 	void render(SDL_Rect dst);
 	//void renderscrolling(int offset);
 	bool inside();
@@ -27,9 +27,8 @@ public:
 	void clean();
 	static int textureWidth; static int textureHeight;
 	static int frameWidth;  static int frameHeight;	
-	SDL_Rect sc[20];
+	SDL_Rect sc[47];
 protected:
-	int frame;
 	SDL_Rect rect;
 	SDL_Texture* texture;
 };

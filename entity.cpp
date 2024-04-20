@@ -81,10 +81,7 @@ double entity::skill_cast(int i) {
 	return stats.atk*mult;
 }
 void entity::update() {
-	if (stats.hp <= 0) {
-		dead = true;
-		stats.hp = 0;
-	}
+	if (stats.hp <= 0) dead = true;
 	for (int i = 0; i < 2; i++) {
 		if (abi[i].choosen == true) {
 			abi[i].cooldown = abi[i].cd;
@@ -124,12 +121,12 @@ void entity::renderEntity(int act){
 	};
 	stance[act]->autorender();
 }
-void entity::aniEntity(int act) {
+void entity::aniEntity(int act, int frame) {
 	enum {
 		idle,
 		atk
 	};
-	stance[act]->autoanimate();
+	stance[act]->autoanimate(frame);
 }
 void entity::renderSkill(){
 	SDL_Rect board = { 15 ,625, 550, 200 };
@@ -156,10 +153,10 @@ int mob::mob_skill() {
 	return 1;
 }
 mob::~mob() {
-	for (int i = 0; i < 2; i++) {
+	/*for (int i = 0; i < 2; i++) {
 		delete stance[i];
 		delete skillImg[i];
-	}
+	}*/
 }
 void fren::statusUpdate() {
 

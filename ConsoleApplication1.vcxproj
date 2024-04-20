@@ -138,7 +138,6 @@
   <ItemGroup>
     <ClCompile Include="allyLoader.cpp" />
     <ClCompile Include="booster.cpp" />
-    <ClCompile Include="card.cpp" />
     <ClCompile Include="charSelect.cpp" />
     <ClCompile Include="ConsoleApplication1.cpp" />
     <ClCompile Include="entity.cpp" />
@@ -156,7 +155,6 @@
   <ItemGroup>
     <ClInclude Include="allyLoader.h" />
     <ClInclude Include="booster.h" />
-    <ClInclude Include="card.h" />
     <ClInclude Include="charSelect.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="entityData.h" />

@@ -24,12 +24,12 @@ public:
 	void loadEntityTexture();
 	void renderEntity(SDL_Rect dst, int act);
 	void renderEntity(int act);
-	void aniEntity(int act);
+	void aniEntity(int act,int frame);
 	void renderSkill();
 	void renderHealth(SDL_Rect dst);
 	void set_rect(SDL_Rect& rect);
 	bool inside();
-
+		
 	entityData stats;
 	skill abi[2];
 	std::string sprite[2];

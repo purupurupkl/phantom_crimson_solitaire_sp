@@ -23,7 +23,7 @@ image::image() {
 };
 image::~image() {
 	SDL_DestroyTexture(texture);
-	texture = NULL;
+
 }
 
 void image::set_image(SDL_Texture* img) {
@@ -46,16 +46,14 @@ void image::autorender() {
 	if (texture == NULL) printf("cannot copy texture! error: %s", SDL_GetError());
 }
 
-void image::autoanimate(/*int frame*/) {
+void image::autoanimate(int frame) {
 	for (int i = 0; i < 20; i++) {
 		sc[i].x = (i % 5) * frameWidth;
 		sc[i].y = (i / 5)* frameHeight;
 		sc[i].w = frameWidth;
 		sc[i].h = frameHeight;
 	}
-	SDL_RenderCopy(gameM::renderer, texture, &sc[image::frame], &rect);
-	frame++;
-	if (frame >= 20) frame = 0;
+	SDL_RenderCopy(gameM::renderer, texture, &sc[frame], &rect);
 }
 void image::render(SDL_Rect dst) {
 	if (texture == NULL) printf("cannot copy texture! error: %s", SDL_GetError());

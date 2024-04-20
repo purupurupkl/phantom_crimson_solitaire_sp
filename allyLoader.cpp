@@ -13,11 +13,8 @@ void allyLoader::initAlly() {
 		rAlly[i] = new fren(1);
 	}
 }
-void allyLoader::applyCard(int atkmod, int hpmod) {
+void allyLoader::allUpdate() {
 	for (int i = 0; i < 3; i++) {
-		rAlly[i]->stats.maxhp += hpmod;
-		rAlly[i]->stats.hp += hpmod;
-		rAlly[i]->stats.atk += atkmod;
-		rAlly[i]->stats.maxatk += atkmod;
+		rAlly[i]->statusUpdate();
 	}
 }
