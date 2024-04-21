@@ -12,26 +12,24 @@ public:
 	//set the object "texture" = "img";
 	void set_image(SDL_Texture* img);
 	void set_imagepos(SDL_Rect& imgpos);
-	//take w and h value from image texture
-	void get_settings();
 
 	// set blend mode
 	void set_blendmode();
 
 	void set_alpha(Uint8 alpha);
 	void autorender();
+	void autoanimate(/*int frame*/);
 	void render(SDL_Rect dst);
-
-	void renderscrolling(int offset);
-
+	//void renderscrolling(int offset);
 	bool inside();
 	void flick_if_needed();
 
 	void clean();
-	
+	static int textureWidth; static int textureHeight;
+	static int frameWidth;  static int frameHeight;	
+	SDL_Rect sc[20];
 protected:
+	int frame;
 	SDL_Rect rect;
 	SDL_Texture* texture;
-	bool drawornot; // do i need this?
-
 };

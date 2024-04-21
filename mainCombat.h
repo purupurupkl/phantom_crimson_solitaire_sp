@@ -13,25 +13,27 @@ public:
 	virtual void loadMedia();
 
 	//handle mouse events
-	virtual void eventHandler(SDL_Event e);
+	virtual void eventHandler (SDL_Event e);
 
-	void update();
+	virtual void update();
 	virtual void render();
-	void clean();
-	static int bgOffset;
+	virtual void clean();
+	//static int bgOffset;
+	
 
-	image* bg;
+	SDL_Texture* bg;
 	//3 enemies, 3 allies
 	fren* ally[3];
 	mob* enemy[3];// 6 characters...
 	SDL_Rect dst[6];
 	bool skillchoosen;
-	bool enemychoosen;
+	bool targetchoosen;
 	bool turntaken;
 	int currentturn;
 	int skillchoice;
 	int enemychoice;
 	int allychoice;
-	bool flag;
+	int frame;
+	//bool flag;
 };
 

@@ -3,6 +3,7 @@
 #include "charSelect.h"
 #include "level2.h"
 #include "level1.h"
+#include "booster.h"
 #include "constants.h"
 #include "writer.h"
 mainMenu* mainmenu = new mainMenu();
@@ -10,9 +11,10 @@ charSelect* charselect = new charSelect();
 //mainCombat* maincombat;
 level2* leveltwo = new level2();
 level1* levelone = new level1();
+booster* boost1 = new booster();
 int gameM::current = gameM::stage1;
 bool gameM::quit = false;
-
+bool gameM::flag = true;
 SDL_Renderer* gameM::renderer = NULL;
 gameM::gameM() {
 
@@ -53,12 +55,29 @@ bool gameM::init() {
 	}
 	return status;
 }
-void gameM::loadMedia() {	
-	mainmenu->loadMedia();
-	charselect->loadMedia();
-	//maincombat->loadMedia();
-	levelone->loadMedia();
-	leveltwo->loadMedia();
+void gameM::loadMedia() {
+	switch (current) {
+		case main_menu:
+			if(gameM::flag == true) mainmenu->loadMedia();
+			gameM::flag = false;
+			break;
+		case char_select:
+			if (gameM::flag == true) charselect->loadMedia();
+			gameM::flag = false;
+			break;
+		case stage1:
+			if (gameM::flag == true) levelone->loadMedia();
+			gameM::flag = false;
+			break;
+		case stage2:
+			if (gameM::flag == true) leveltwo->loadMedia();
+			gameM::flag = false;
+			break;
+		case after1:
+			if (gameM::flag == true) boost1->loadMedia();
+			gameM::flag = false;
+			break;
+	}
 }
 bool gameM::quitgame() {
 	return quit;
@@ -77,6 +96,9 @@ void gameM::eventHandler(SDL_Event& e) {
 	case stage1:
 		levelone->eventHandler(e);
 		break;
+	case after1:
+		boost1->eventHandler(e);
+		break;
 	case stage2:
 		leveltwo->eventHandler(e);
 		break;
@@ -92,6 +114,9 @@ void gameM::update() {
 		break;
 	case stage1:
 		/*maincombat*/ levelone->update();
+		break;
+	case after1:
+		boost1->update();
 		break;
 	case stage2:
 		/*maincombat*/ leveltwo->update();
@@ -109,17 +134,33 @@ void gameM::render() {
 	case stage1:
 		/*maincombat*/levelone->render();
 		break;
-	case stage2:
-		/*maincombat*/leveltwo->render();
+	case after1:
+		boost1->render();
 		break;
-}
+	case stage2:
+		leveltwo->render();
+		break;
 	}
+}
 	
 void gameM::clean() {
-	mainmenu->clean();
-	charselect->clean();
-	/*maincombat*/levelone->clean();
-	leveltwo->clean();
+	switch (current) {
+	case main_menu:
+		mainmenu->clean();
+		break;
+	case char_select:
+		charselect->clean();
+		break;
+	case stage1:
+		/*maincombat*/levelone->clean();
+		break;
+	case after1:
+		boost1->clean();
+		break;
+	case stage2:
+		leveltwo->clean();
+		break;
+	}
 	//delete(mainmenu);
 	//delete(charselect);
 	//delete(levelone);

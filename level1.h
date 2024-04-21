@@ -7,5 +7,12 @@ public:
     level1() : mainCombat() {};
     void loadMedia() override;
     void eventHandler(SDL_Event e) override;
+    void update() override;
+    void render() override;
+    void clean() override;
+    void handlePlayer(SDL_Event& e);
+    entity* current;
+    bool myturn;
+    int allyturn;
+    int enemyturn;
 };
-

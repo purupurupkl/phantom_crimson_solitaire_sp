@@ -6,9 +6,10 @@ public:
 	static allyLoader& get();
 	void initAlly();
 	void realfren(fren* ally[3]);
-	void allUpdate();
-private:
+	void applyCard(int,int);
 	fren* rAlly[3];
+private:
+	
 	allyLoader() {};
 	static allyLoader cally;
 };
