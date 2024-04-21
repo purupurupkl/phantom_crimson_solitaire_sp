@@ -41,7 +41,7 @@ void booster::render() {
 	for (int i = 0; i < 3; i++) {
 		SDL_SetRenderDrawColor(gameM::renderer, 0x00, 0x00, 0x00, 0xFF);
 		SDL_RenderFillRect(gameM::renderer, &msgbox[i]);
-		writer::get().loadText(text[i] + extext, { 0xFF,0x00,0x00,0xFF }, textbox[i]);
+		writer::get().loadText(text[i] + extext, { 0xFF,0x00,0x00,0xFF }, textbox[i], 20);
 	}
 	SDL_RenderPresent(gameM::renderer);
 	

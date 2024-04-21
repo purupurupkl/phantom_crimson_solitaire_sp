@@ -151,16 +151,16 @@ void entity::renderSkill(){
 	for (int i = 0; i < 2; i++) {
 		skillImg[i]->render(msg[i]);
 		skillImg[i]->set_alpha(100);
-		writer::get().loadText(std::to_string(abi[i].cooldown), { 0xFF,0xFF,0xFF,0xFF }, msg[i]);
+		writer::get().loadText(std::to_string(abi[i].cooldown), { 0xFF,0xFF,0xFF,0xFF }, msg[i],5);
 	}
 	std::string health = "HP: " + std::to_string(stats.hp) + "/" + std::to_string(stats.maxhp);
-	SDL_Rect msghp = { 100, 725, 100, 50 };
-	writer::get().loadText(health, { 0xFF,0xFF,0xFF,0xFF }, msghp);
+	SDL_Rect msghp = { 100, 725, 150, 100 };
+	writer::get().loadText(health, { 0xFF,0xFF,0xFF,0xFF }, msghp, 20);
 }
 void entity::renderHealth(SDL_Rect dst){
 	std::string health = std::to_string(stats.hp) + "/" + std::to_string(stats.maxhp);
 	SDL_Rect hpbox = { dst.x, dst.y - 50, 50 , 20 };
-	writer::get().loadText(health, { 0xFF,0xFF,0xFF,0xFF }, hpbox);
+	writer::get().loadText(health, { 0xFF,0xFF,0xFF,0xFF }, hpbox, 10);
 }
 bool entity::inside() {
 	return (stance[0]->inside() || stance[1]->inside());

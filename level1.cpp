@@ -79,29 +79,30 @@ void level1::eventHandler(SDL_Event e){
 	}
 };
 void level1::update() {
-		//if(!myturn){
-		//	if (current->dead == false){
-		//		if(frame == 0){
-		//			skillchoice = 0;
-		//			skillchoosen = true;
-		//			allychoice = 0;
-		//			while (ally[allychoice]->dead == true) allychoice = rand() % 3;
-		//			targetchoosen = true;
-		//		}
-		//		if (skillchoosen == true && targetchoosen == true) {
-		//			current->cast(skillchoice, ally[allychoice]);
-		//			std::cout << "ally " << allychoice << " was attacked,remaining health " << ally[allychoice]->hp_getter() << std::endl;
-		//		}
-		//		printf("next turn : character %i\n", allyturn + 1);
-		//		turntaken = true;
-		//		skillchoosen = false;
-		//		targetchoosen = false;
-		//	}
-		//}
-		//else {
-		//	turntaken = true;
-		//	frame = 20;
-		//}
+		if(!myturn){
+			if (current->dead == false){
+				if(frame == 0){
+					skillchoice = 0;
+					skillchoosen = true;
+					allychoice = 0;
+					while (ally[allychoice]->dead == true) allychoice = rand() % 3;
+					targetchoosen = true;
+				}
+				if (skillchoosen == true && targetchoosen == true) {
+					current->cast(skillchoice, ally[allychoice]);
+					std::cout << "ally " << allychoice << " was attacked,remaining health " << ally[allychoice]->hp_getter() << std::endl;
+				}
+				printf("next turn : character %i\n", allyturn + 1);
+				turntaken = true;
+				skillchoosen = false;
+				targetchoosen = false;
+			}
+			else {
+			turntaken = true;
+			frame = 20;
+			}
+		}
+		
 	if (frame == 0) { 
 		if (turntaken == true) {
 			//for (int i = 0; i < 3; i++) {
@@ -137,6 +138,7 @@ void level1::render() {
 		{
 			if (current->dead == false) {
 				current->aniEntity(1);
+				current->renderSkill();
 				frame++;
 			}
 			else current->renderEntity(outofscreen, 0);
@@ -146,24 +148,22 @@ void level1::render() {
 					if (i != allyturn) {
 						if (ally[i]->dead == false) {
 							ally[i]->renderEntity(0); //????
-							ally[i]->renderSkill();
 							ally[i]->renderHealth(dst[i]);
 						}
 						else ally[i]->renderEntity(outofscreen, 0);
 					}
 					if (enemy[i]->dead == false) {
 						enemy[i]->renderEntity(0);
-						enemy[i]->renderSkill();
 						enemy[i]->renderHealth(dst[i + 3]);
 					}
 					else enemy[i]->renderEntity(outofscreen, 0);
 				}
 			}
 			else {
+				
 				for (int i = 0; i < 3; i++) {
 					if (ally[i]->dead == false) {
 						ally[i]->renderEntity(0); //????
-						ally[i]->renderSkill();
 						ally[i]->renderHealth(dst[i]);
 					}
 					else ally[i]->renderEntity(outofscreen, 0);
@@ -171,7 +171,6 @@ void level1::render() {
 					if (i != enemyturn) {
 						if (enemy[i]->dead == false) {
 							enemy[i]->renderEntity(0);
-							enemy[i]->renderSkill();
 							enemy[i]->renderHealth(dst[i + 3]);
 						}
 						else enemy[i]->renderEntity(outofscreen, 0);
@@ -179,18 +178,18 @@ void level1::render() {
 				}
 			}	
 		}
-		if (turntaken == false){                 
+		if (turntaken == false){
+			current->renderSkill();                 
 			for (int i = 0; i < 3; i++) {
 				if (ally[i]->dead == false) {
 					ally[i]->renderEntity(0); //????
-					ally[i]->renderSkill();
 					ally[i]->renderHealth(dst[i]);
+					
 				}
 				else ally[i]->renderEntity(outofscreen, 0);
 
 				if (enemy[i]->dead == false) {
 					enemy[i]->renderEntity(0);
-					enemy[i]->renderSkill();
 					enemy[i]->renderHealth(dst[i + 3]);
 				}
 				else enemy[i]->renderEntity(outofscreen,0); 
