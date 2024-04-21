@@ -10,5 +10,5 @@ public:
     void update() override;
     void render() override;
     void clean() override;
-    
+    void handlePlayer(SDL_Event& e);
 };

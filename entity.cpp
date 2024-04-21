@@ -65,6 +65,15 @@ void entity::attacked(int damage) {
 double entity::hp_getter() {
 	return stats.hp;
 }
+int entity::available(int i) {
+	int ans = -1;
+	if (abi[i].cooldown != 0) {
+		std::cout << "on cd" << std::endl;
+		ans = -1;
+	}
+	else ans = i;
+	return ans;
+};
 
 int fren::availableSkill() {
 	for (int i = 0; i < 2; i++) {

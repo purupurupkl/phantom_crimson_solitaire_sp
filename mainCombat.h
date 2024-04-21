@@ -13,12 +13,13 @@ public:
 	virtual void loadMedia();
 
 	//handle mouse events
-	virtual void eventHandler(SDL_Event e);
+	virtual void eventHandler (SDL_Event e);
 
 	virtual void update();
 	virtual void render();
 	virtual void clean();
 	//static int bgOffset;
+	
 
 	SDL_Texture* bg;
 	//3 enemies, 3 allies

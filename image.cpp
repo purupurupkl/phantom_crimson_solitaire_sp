@@ -1,8 +1,8 @@
 #include "image.h"
 #include "constants.h"
 
-int image::textureWidth = 1960;
-int image::textureHeight = 1368;
+int image::textureWidth = 1500;
+int image::textureHeight = 736;
 int image::frameWidth = textureWidth / 5;
 int image::frameHeight = textureHeight / 4;
 
@@ -49,7 +49,7 @@ void image::autorender() {
 void image::autoanimate(/*int frame*/) {
 	for (int i = 0; i < 20; i++) {
 		sc[i].x = (i % 5) * frameWidth;
-		sc[i].y = (i / 5)* frameHeight;
+		sc[i].y = (i / 5) *frameHeight;
 		sc[i].w = frameWidth;
 		sc[i].h = frameHeight;
 	}

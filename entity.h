@@ -14,7 +14,7 @@ public:
 	// when attacked
 	void attacked(int damage);
 	double hp_getter();
-
+	int available(int i);
 
 	double skill_cast(int i);
 	

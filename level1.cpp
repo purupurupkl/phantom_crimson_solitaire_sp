@@ -16,6 +16,28 @@ void level1::loadMedia() {
 		enemy[i]->set_rect(dst[i + 3]);
 	}
 }
+void level1::handlePlayer(SDL_Event &e) {
+	switch (e.key.keysym.sym) {
+	case SDLK_q:
+		skillchoice = ally[currentturn]->available(0);
+		break;
+	case SDLK_w:
+		skillchoice = ally[currentturn]->available(1);
+		break;
+	case SDLK_1:
+		if (skillchoice != -1) enemychoice = 0;
+		break;
+	case SDLK_2:
+		if (skillchoice != -1) enemychoice = 1;
+		break;
+	case SDLK_3:
+		if (skillchoice != -1) enemychoice = 2;
+		break;
+	}
+	if (skillchoice != -1) skillchoosen = true;
+	if (enemychoice != -1) enemychoosen = true;
+
+}
 void level1::eventHandler(SDL_Event e) {
 		if (currentturn >= 3) {
 			if (/*enemy[currentturn - 3]->dead == false*/true ) {
@@ -32,24 +54,25 @@ void level1::eventHandler(SDL_Event e) {
 		//SDL_Delay(5000);
 		}
 		else {
-			if (e.type == SDL_MOUSEBUTTONDOWN) {
-				if (skillchoosen == false || ally[currentturn]->availableSkill() != -1) {
-					skillchoice = ally[currentturn]->availableSkill();
-					if (skillchoice != -1) {
-						skillchoosen = true;
-						std::cout << "skill choosen: " << skillchoice << std::endl;
-					}
-				}
-				else if (enemychoosen == false) {
-					for (int i = 0; i < 3; i++) {
-						if (enemy[i]->inside() && enemy[i]->dead == false) {
-							std::cout << "enemy " << i << " choosen";
-							enemychoosen = true;
-							enemychoice = i;
-							break;
-						}
-					}
-				}
+			if (e.type == SDL_KEYDOWN) {
+				///*if (skillchoosen == false || ally[currentturn]->availableSkill() != -1) {
+				//	skillchoice = ally[currentturn]->availableSkill();
+				//	if (skillchoice != -1) {
+				//		skillchoosen = true;
+				//		std::cout << "skill choosen: " << skillchoice << std::endl;
+				//	}
+				//}
+				//else if (enemychoosen == false) {
+				//	for (int i = 0; i < 3; i++) {
+				//		if (enemy[i]->inside() && enemy[i]->dead == false) {
+				//			std::cout << "enemy " << i << " choosen";
+				//			enemychoosen = true;
+				//			enemychoice = i;
+				//			break;
+				//		}
+				//	}
+				//}*/
+				handlePlayer(e);
 			}
 		}
 		if (skillchoosen == true && enemychoosen == true) {
@@ -96,17 +119,17 @@ void level1::render() {
 						ally[i]->aniEntity(1);
 						frame++;
 					}
-					else ally[i]->aniEntity(0); //????
+					else ally[i]->renderEntity(0); //????
 					ally[i]->renderSkill();
 				}
-				else ally[i]->aniEntity(0);
+				else ally[i]->renderEntity(0);
 				ally[i]->renderHealth(dst[i]);
 			}
 			else ally[i]->renderEntity(outofscreen, 0);
 
 			if (enemy[i]->dead == false) {
-				if (i + 3 == currentturn) {
-					enemy[i]->renderEntity(dst[i + 3], 1);
+				if (i + 3 == currentturn && frame < 20) {
+					enemy[i]->aniEntity(1);
 				}
 				else enemy[i]->renderEntity(0);
 				enemy[i]->renderHealth(dst[i + 3]);

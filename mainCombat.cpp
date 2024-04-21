@@ -7,14 +7,14 @@
 mainCombat::mainCombat() {
 	//all these rects and chars should be put in vectors or something
 	srand(time(0));
-	 dst[0] = { 100, 300, 200, 200};
-	 dst[1] = { 150, 350, 200, 200 };
-	 dst[2] = { 100, 400, 200, 200 };
+	 dst[0] = { 100, 300, 150, 150};
+	 dst[1] = { 150, 350, 150, 150};
+	 dst[2] = { 100, 400, 200, 126};
 
 
-	 dst[3] = {300, 300, 200, 200 };
-	 dst[4] = {250, 350, 200, 200};
-	 dst[5] = {300, 400, 200, 200};
+	 dst[3] = {300, 300, 150, 150};
+	 dst[4] = {250, 350, 150, 150};
+	 dst[5] = {300, 400, 150, 150};
 	 currentturn = 0;
 	 enemychoosen = false;
 	 skillchoosen = false;
