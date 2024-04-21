@@ -84,16 +84,20 @@ int fren::availableSkill() {
 	}
 	return -1;
 }
-double entity::skill_cast(int i) {
-	double mult = 1;
+
+int entity::skill_cast(int i) {
+	int mult = 1;
 	if (i != -1) mult = abi[i].multiplier;
 	return stats.atk*mult;
 }
+void entity::cast(int skill, entity* target) {
+	//if(abi[skill].type == "attack"){
+	target->stats.hp -= skill_cast(skill);
+	if (target->stats.hp <= 0) target->dead = true;
+	//}
+	abi[skill].choosen = true;
+}
 void entity::update() {
-	if (stats.hp <= 0) {
-		dead = true;
-		stats.hp = 0;
-	}
 	for (int i = 0; i < 2; i++) {
 		if (abi[i].choosen == true) {
 			abi[i].cooldown = abi[i].cd;

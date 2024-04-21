@@ -11,4 +11,8 @@ public:
     void render() override;
     void clean() override;
     void handlePlayer(SDL_Event& e);
+    entity* current;
+    bool myturn;
+    int allyturn;
+    int enemyturn;
 };

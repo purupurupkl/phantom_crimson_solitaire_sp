@@ -16,7 +16,7 @@ mainCombat::mainCombat() {
 	 dst[4] = {250, 350, 150, 150};
 	 dst[5] = {300, 400, 150, 150};
 	 currentturn = 0;
-	 enemychoosen = false;
+	 targetchoosen = false;
 	 skillchoosen = false;
 	 turntaken = false;
 	 enemychoice = -1;
@@ -72,18 +72,18 @@ void mainCombat::eventHandler(SDL_Event e){
 					ally[currentturn]->abi[skillchoice].choosen = true;
 				}
 			}
-			else if (enemychoosen == false) {
+			else if (targetchoosen == false) {
 				for (int i = 0; i < 3; i++) {
 					if (enemy[i]->inside()){
 						std::cout << "enemy " << i << " choosen";
-						enemychoosen = true;
+						targetchoosen = true;
 						enemychoice = i;
 						break;
 					}
 				}
 			}
 		}
-		if (skillchoosen == true && enemychoosen == true) {
+		if (skillchoosen == true && targetchoosen == true) {
 			enemy[enemychoice]->attacked(ally[currentturn]->skill_cast(skillchoice));
 			std::cout << "enemy " << enemychoice << " was attacked,remaining health " << enemy[enemychoice]->hp_getter() << std::endl;
 			printf("next turn : character %i\n", currentturn + 1);

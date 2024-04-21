@@ -10,7 +10,7 @@
 namespace characterImage {
     std::string Kkr[2]{
         /*"C:\\Users\\HUYBUIAN\\Downloads\\sprite_sheet (3).png",*/
-        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\zetaidle2.png",
+        "C:\\Users\\HUYBUIAN\\Downloads\\105931_0_24_044.png",
         "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\sheet\\idle2.png"
     };
     std::string Cagliostro[2]{
@@ -23,7 +23,7 @@ namespace characterImage {
     };
     std::string Dog[2]{
         "C:\\Users\\HUYBUIAN\\Downloads\\105931_0_24_044.png",
-        "C:\\Users\\HUYBUIAN\\Downloads\\105931_0_24_044.png"
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\sheet\\idle2.png"
     };
 }
 namespace skillImage {

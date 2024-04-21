@@ -27,7 +27,7 @@ public:
 	mob* enemy[3];// 6 characters...
 	SDL_Rect dst[6];
 	bool skillchoosen;
-	bool enemychoosen;
+	bool targetchoosen;
 	bool turntaken;
 	int currentturn;
 	int skillchoice;
