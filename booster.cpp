@@ -8,11 +8,9 @@ booster::booster() {};
 booster::~booster() {};
 void booster::loadMedia() {
 	for (int i = 0; i < 3; i++) {
-		boost[i].atkmod = rand() % 30 + 1;
-		boost[i].hpmod = rand() % 50 + 1;
+		boost[i].random(30, 50);
 		msgbox[i] = { 0, 100 + 300 * i, 600, 200 };
-		textbox[i] = { 50, 150 + 300 * i, 500,100 };
-		text[i] = "Your team gain " + std::to_string(boost[i].atkmod) + " ATK and " + std::to_string(boost[i].hpmod);
+		textbox[i] = { 100, 150 + 300 * i, 300 , 100 };
 	}
 }
 bool inside(SDL_Rect box) {
@@ -33,15 +31,18 @@ void booster::eventHandler(SDL_Event e) {
 		}
 	}
 	
-
 }
 void booster::render() {
 	std::string extext = "I'm sorry this looks so bad, calculus messed with me so hard yo";
+	SDL_SetRenderDrawColor(gameM::renderer, 0x00, 0x00, 0x00, 0x00);
 	SDL_RenderClear(gameM::renderer);
 	for (int i = 0; i < 3; i++) {
-		SDL_SetRenderDrawColor(gameM::renderer, 0x00, 0x00, 0x00, 0xFF);
+		SDL_SetRenderDrawColor(gameM::renderer, 0x00, 0xFF, 0x00, 0xFF);
 		SDL_RenderFillRect(gameM::renderer, &msgbox[i]);
-		writer::get().loadText(text[i] + extext, { 0xFF,0x00,0x00,0xFF }, textbox[i], 20);
+		int w, h;
+		TTF_SizeText(writer::get().font, boost[i].text.c_str(), &w, &h);
+		std::cout << "size: " << w << " and " << h << std::endl;
+		writer::get().loadTextWrapped(boost[i].text /*+ extext*/, { 0xFF,0x00,0x00,0xFF }, textbox[i], 25, 200);
 	}
 	SDL_RenderPresent(gameM::renderer);
 	

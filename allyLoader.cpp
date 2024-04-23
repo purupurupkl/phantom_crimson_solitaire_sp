@@ -10,7 +10,7 @@ void allyLoader::realfren(fren* ally[3]) {
 }
 void allyLoader::initAlly() {
 	for (int i = 0; i < 3; i++) {
-		rAlly[i] = new fren(1);
+		rAlly[i] = new fren(i+1);
 	}
 }
 void allyLoader::applyCard(int atkmod, int hpmod) {
