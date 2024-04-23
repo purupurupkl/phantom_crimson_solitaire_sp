@@ -29,18 +29,18 @@ namespace characterImage {
 namespace skillImage {
     std::string Nian[2]{
         "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\aa.png",
-        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\zeta_s2.png"
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\nians2.png"
     };
     std::string Saga[2]{
-        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\zeta_s1.png",
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\spearbase.png",
         "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\zeta_s2.png"
     };
     std::string April[2]{
-        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\base.png",
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\aa.png",
         "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\zeta_s2.png"
     };
     std::string Dog[2]{
-        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\zeta_s1.png",
+        "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\spearbase.png",
         "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\skill_icon\\zeta_s2.png"
     };
 }

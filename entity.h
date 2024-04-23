@@ -12,8 +12,6 @@ public:
 	
 	bool dead;
 	// when attacked
-	void attacked(int damage);
-	double hp_getter();
 	int available(int i);
 	void cast(int skill, entity* target);
 	int skill_cast(int i);
@@ -45,9 +43,7 @@ public:
 	using entity::entity;
 	fren(int ID) : entity::entity(ID) {};
     ~fren();
-	void statusUpdate();	
-	int availableSkill();
-};
+	void statusUpdate();	};
 
 class mob :
     public entity

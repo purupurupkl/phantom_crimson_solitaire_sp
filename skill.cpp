@@ -2,10 +2,10 @@
 #include "textureLoader.h"
 #include "writer.h"
 skill::skill() {};
-skill::skill(int tp, double mult, int cld, int realcd) {
+skill::skill(int tp, double mult, int realcd) {
 	type = tp;
 	multiplier = mult;
-	cooldown = cld;
+	cooldown = 0;
 	cd = realcd;
 	choosen = false;
 }

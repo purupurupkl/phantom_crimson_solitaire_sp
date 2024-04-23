@@ -8,7 +8,7 @@ void level1::loadMedia() {
 	for (int i = 0; i < 3; i++) {
 		ally[i]->loadEntityTexture();
 		ally[i]->set_rect(dst[i]);
-		std::cout << ally[i]->hp_getter() << std::endl;
+		std::cout << ally[i]->stats.hp << std::endl;
 	}
 	for (int i = 0; i < 3; i++) {
 		enemy[i] = new mob(-1);
@@ -96,7 +96,6 @@ void level1::update() {
 					while (ally[allychoice]->dead == true) allychoice = rand() % 3;
 					/*targetchoosen = true;*/
 					current->cast(skillchoice, ally[allychoice]);
-					std::cout << "ally " << allychoice << " was attacked,remaining health " << ally[allychoice]->hp_getter() << std::endl;
 					printf("next turn : character %i\n", allyturn + 1);
 					turntaken = true;
 					//skillchoosen = false;
@@ -242,15 +241,12 @@ void level1::clean() {
 	if (gameM::flag == true) {
 		SDL_DestroyTexture(bg);
 		bg = NULL;
-		/*for (int i = 0; i < 3; i++) {
-			enemy[i]->~mob();
-			ally[i]->~fren();
+		for (int i = 0; i < 3; i++) {
 			delete enemy[i];
-			delete ally[i];
-		}*/	
+		}
 		SDL_DestroyTexture(board);
+		board = NULL;
+		current = NULL;
 		gameM::current = gameM::after1;
 	}
-
-
 }

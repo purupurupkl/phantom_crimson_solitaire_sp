@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include <map>
+#include <unordered_map>
 struct entityData {
 	entityData() {};
 	entityData(std::string name, int health, int attack, int defense);
@@ -17,11 +17,11 @@ namespace characterStats{
 	const entityData SagaStats("Saga", 700, 90, 20);
 	const entityData AprilStats("April", 80, 60, 20);
 	const entityData DogStats("Dog", 100, 50, 10);
-	const std::map<int, entityData> characterData = {
+	const std::unordered_map<int, entityData> characterData = {
 		{1, NianStats},
 		{2,SagaStats},
 		{3,AprilStats},
-		{4,DogStats}
+		{-1,DogStats}
 	};
 }
 

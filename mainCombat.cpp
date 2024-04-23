@@ -39,7 +39,6 @@ void mainCombat::loadMedia() {
 		std::cout << ally[i]->sprite[1] << std::endl;	
 		ally[i]->loadEntityTexture();
 		ally[i]->set_rect(dst[i]);
-		std::cout << ally[i]->hp_getter() << std::endl;
 	}
 	for (int i = 0; i < 3; i++) {
 		enemy[i] = new mob(-1);
@@ -49,47 +48,7 @@ void mainCombat::loadMedia() {
 }
 
 void mainCombat::eventHandler(SDL_Event e){
-	if (currentturn >= 3) {
-		if (enemy[currentturn - 3]->dead == false) {
-			skillchoice = 1;
-			do {
-				allychoice = rand() % 3;
-			} while (ally[allychoice]->dead == true);
-			ally[allychoice]->attacked(enemy[currentturn - 3]->skill_cast(skillchoice));
-			std::cout << "ally " << allychoice << " was attacked,remaining health " << ally[allychoice]->hp_getter() << std::endl;
-			turntaken = true;
-		}
-		else currentturn = (currentturn + 1) % 6;
-		printf("next turn : character %i\n", currentturn + 1);
-		//SDL_Delay(5000);
-	}
-	else{
-		if (e.type == SDL_MOUSEBUTTONDOWN) {
-			if (skillchoosen == false) {
-				skillchoice = ally[currentturn]->availableSkill();
-				if (skillchoice != -1) {
-					skillchoosen = true;
-					ally[currentturn]->abi[skillchoice].choosen = true;
-				}
-			}
-			else if (targetchoosen == false) {
-				for (int i = 0; i < 3; i++) {
-					if (enemy[i]->inside()){
-						std::cout << "enemy " << i << " choosen";
-						targetchoosen = true;
-						enemychoice = i;
-						break;
-					}
-				}
-			}
-		}
-		if (skillchoosen == true && targetchoosen == true) {
-			enemy[enemychoice]->attacked(ally[currentturn]->skill_cast(skillchoice));
-			std::cout << "enemy " << enemychoice << " was attacked,remaining health " << enemy[enemychoice]->hp_getter() << std::endl;
-			printf("next turn : character %i\n", currentturn + 1);
-			turntaken = true;
-		}
-	}
+	
 }
 
 void mainCombat::update() {

@@ -22,7 +22,7 @@ entity::entity(int ID) {
 			skillImg[i]->set_image(loader::loadTexture(skillImage::Nian[i]));
 			}
 			abi[0] = skillStats::base;
-			abi[1] = skillStats::Zeta_s2;
+			abi[1] = skillStats::Nian_s2;
 			break;
 		case 2:
 			for (int i = 0; i < 2; i++) {
@@ -58,12 +58,6 @@ entity::entity(int ID) {
 entity::~entity() {
 
 }
-void entity::attacked(int damage) {
-	stats.hp -= damage;
-}
-double entity::hp_getter() {
-	return stats.hp;
-}
 int entity::available(int i) {
 	int ans = -1;
 	if (abi[i].cooldown != 0) {
@@ -74,15 +68,6 @@ int entity::available(int i) {
 	return ans;
 };
 
-int fren::availableSkill() {
-	for (int i = 0; i < 2; i++) {
-		if (skillImg[i]->inside()) {
-			if (abi[i].cooldown == 0) return i;
-			else return -1;
-		}
-	}
-	return -1;
-}
 
 int entity::skill_cast(int i) {
 	double mult = 1;
@@ -90,10 +75,14 @@ int entity::skill_cast(int i) {
 	return stats.atk*mult;
 }
 void entity::cast(int skill, entity* target) {
-	//if(abi[skill].type == "attack"){
-	target->stats.hp -= skill_cast(skill)*100 / (100 + target->stats.def);
-	if (target->stats.hp <= 0) target->dead = true;
-	//}
+	if(abi[skill].type == 0){
+		target->stats.hp -= skill_cast(skill)*100 / (100 + target->stats.def);
+		if (target->stats.hp <= 0) target->dead = true;
+	}
+	else if (abi[skill].type == 1) {
+		target->stats.hp += skill_cast(skill);
+		if (target->stats.hp > target->stats.maxhp) target->stats.hp = target->stats.maxhp; //cap health
+	}
 	abi[skill].choosen = true;
 }
 void entity::update() {
