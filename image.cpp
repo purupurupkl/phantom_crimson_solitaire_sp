@@ -1,10 +1,7 @@
 #include "image.h"
 #include "constants.h"
 
-int image::textureWidth = 1500;
-int image::textureHeight = 736;
-int image::frameWidth = textureWidth / 5;
-int image::frameHeight = textureHeight / 4;
+
 
 image::image(int x, int y, int w, int h) {
 	rect.w = w;
@@ -29,6 +26,18 @@ image::~image() {
 void image::set_image(SDL_Texture* img) {
 	if (img == NULL) std::cout << "what happened???" << std::endl;
 	texture = img;
+	int w, h;
+	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+	image::textureWidth = w;
+	image::textureHeight = h;
+	image::frameWidth = textureWidth / 5;
+	image::frameHeight = textureHeight / 4;
+	for (int i = 0; i < 20; i++) {
+		sc[i].x = (i % 5) * frameWidth;
+		sc[i].y = (i / 5) *frameHeight;
+		sc[i].w = frameWidth;
+		sc[i].h = frameHeight;
+	}
 	set_blendmode();
 	//get_settings();        causing image to not load?
 }
@@ -47,12 +56,6 @@ void image::autorender() {
 }
 
 void image::autoanimate(/*int frame*/) {
-	for (int i = 0; i < 20; i++) {
-		sc[i].x = (i % 5) * frameWidth;
-		sc[i].y = (i / 5) *frameHeight;
-		sc[i].w = frameWidth;
-		sc[i].h = frameHeight;
-	}
 	SDL_RenderCopy(gameM::renderer, texture, &sc[image::frame], &rect);
 	frame++;
 	if (frame >= 20) frame = 0;

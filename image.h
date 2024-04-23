@@ -25,8 +25,8 @@ public:
 	void flick_if_needed();
 
 	void clean();
-	static int textureWidth; static int textureHeight;
-	static int frameWidth;  static int frameHeight;	
+	int textureWidth; int textureHeight;
+	int frameWidth;  int frameHeight;	
 	SDL_Rect sc[20];
 protected:
 	int frame;
