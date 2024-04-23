@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 class card
 {
 public:
@@ -7,6 +8,8 @@ public:
 	~card();
 	int atkmod;
 	int hpmod;
+	std::string text;
+	void random(int hpcap,int atkcap);
 	//for now this will do
 };
 

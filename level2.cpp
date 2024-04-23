@@ -3,10 +3,10 @@
 void level2::loadMedia() {
 		currentturn = 0;
 		bg = IMG_LoadTexture(gameM::renderer, "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\redder.jpeg");
-		//allyLoader::get().realfren(ally);
+		allyLoader::get().realfren(ally);
 		std::cout << " loaded level 2 " << std::endl;
 		for (int i = 0; i < 3; i++) {
-			ally[i] = new fren(1);
+			/*ally[i] = new fren(1);*/
 			ally[i]->loadEntityTexture();
 			ally[i]->set_rect(dst[i]);
 			std::cout << ally[i]->hp_getter() << std::endl;

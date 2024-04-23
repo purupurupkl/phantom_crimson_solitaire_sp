@@ -12,6 +12,7 @@ public:
     void clean() override;
     void handlePlayer(SDL_Event& e);
     entity* current;
+    SDL_Texture* board;
     bool myturn;
     int allyturn;
     int enemyturn;

@@ -2,7 +2,8 @@
 #include "allyLoader.h"
 void level1::loadMedia() {
 	currentturn = 0;
-	bg = IMG_LoadTexture(gameM::renderer, "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\desert.jpeg");
+	bg = IMG_LoadTexture(gameM::renderer, "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\combatbg.jpeg");
+	board = IMG_LoadTexture(gameM::renderer, "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\board.png");
 	allyLoader::get().realfren(ally);
 	for (int i = 0; i < 3; i++) {
 		ally[i]->loadEntityTexture();
@@ -19,28 +20,46 @@ void level1::loadMedia() {
 	frame = 0;
 	myturn = true;
 	current = ally[allyturn];
-	
 }
-void level1::handlePlayer(SDL_Event &e) {
+void level1::handlePlayer(SDL_Event& e) {
+
+	enum {
+		attack,
+		support
+	};
 	switch (e.key.keysym.sym) {
 	case SDLK_z:
-		skillchoice = ally[currentturn]->available(0);
+		skillchoice = current->available(0);
 		break;
 	case SDLK_x:
-		skillchoice = ally[currentturn]->available(1);
-		break;
-	case SDLK_1:
-		if (skillchoice != -1) enemychoice = 0; //what about dead enemy
-		break;
-	case SDLK_2:
-		if (skillchoice != -1) enemychoice = 1;
-		break;
-	case SDLK_3:
-		if (skillchoice != -1) enemychoice = 2;
+		skillchoice = current->available(1);
 		break;
 	}
-	if (skillchoice != -1) skillchoosen = true;
-	if (enemychoice != -1) targetchoosen = true;
+	if (skillchoice != -1) {
+		skillchoosen = true;
+		int choice = -1;
+		switch (e.key.keysym.sym) {
+		case SDLK_1:
+			choice = 0; //what about dead enemy
+			break;
+		case SDLK_2:
+			choice = 1;
+			break;
+		case SDLK_3:
+			choice = 2;
+			break;
+		}
+		if (choice != -1) {
+			if (current->abi[skillchoice].type == attack && enemy[choice]->dead == false) {
+				enemychoice = choice;
+				targetchoosen = true;
+			}
+			else if (current->abi[skillchoice].type == support && ally[choice]->dead == false) { //revive mechanism? nah
+				allychoice = choice;
+				targetchoosen = true;
+			}
+		}
+	}
 }
 void level1::eventHandler(SDL_Event e){
 	if (frame == 0) {					//while animation is NOT playing
@@ -49,27 +68,16 @@ void level1::eventHandler(SDL_Event e){
 				if (e.type == SDL_KEYDOWN) {
 					handlePlayer(e);
 				}
-			}
-			else {
-				skillchoice = 0;
-				skillchoosen = true;
-				allychoice = 0;
-				while (ally[allychoice]->dead == true) allychoice = rand() % 3;
-				targetchoosen = true;
-			}
-			if (skillchoosen == true && targetchoosen == true) {
-				if (myturn) {
-					current->cast(skillchoice, enemy[enemychoice]);
-					std::cout << "enemy " << enemychoice << " was attacked,remaining health " << enemy[enemychoice]->hp_getter() << std::endl;
-				}
-				else {
-					current->cast(skillchoice, ally[allychoice]);
-					std::cout << "ally " << allychoice << " was attacked,remaining health " << ally[allychoice]->hp_getter() << std::endl;
-				}
+				if (skillchoosen == true && targetchoosen == true) {
+					if (enemychoice != -1) current->cast(skillchoice, enemy[enemychoice]);
+					else if (allychoice != -1) current->cast(skillchoice, ally[allychoice]);
+				
+				std::cout << "ally " << allyturn << " took turn " <<  std::endl;
 				printf("next turn : character %i\n", allyturn + 1);
 				turntaken = true;
 				skillchoosen = false;
 				targetchoosen = false;
+				}
 			}
 		}
 		else {
@@ -79,29 +87,28 @@ void level1::eventHandler(SDL_Event e){
 	}
 };
 void level1::update() {
-		//if(!myturn){
-		//	if (current->dead == false){
-		//		if(frame == 0){
-		//			skillchoice = 0;
-		//			skillchoosen = true;
-		//			allychoice = 0;
-		//			while (ally[allychoice]->dead == true) allychoice = rand() % 3;
-		//			targetchoosen = true;
-		//		}
-		//		if (skillchoosen == true && targetchoosen == true) {
-		//			current->cast(skillchoice, ally[allychoice]);
-		//			std::cout << "ally " << allychoice << " was attacked,remaining health " << ally[allychoice]->hp_getter() << std::endl;
-		//		}
-		//		printf("next turn : character %i\n", allyturn + 1);
-		//		turntaken = true;
-		//		skillchoosen = false;
-		//		targetchoosen = false;
-		//	}
-		//}
-		//else {
-		//	turntaken = true;
-		//	frame = 20;
-		//}
+		if(frame == 0){
+			if (current->dead == false){
+				if(!myturn){
+					skillchoice = 0;
+					//skillchoosen = true;
+					allychoice = 0;
+					while (ally[allychoice]->dead == true) allychoice = rand() % 3;
+					/*targetchoosen = true;*/
+					current->cast(skillchoice, ally[allychoice]);
+					std::cout << "ally " << allychoice << " was attacked,remaining health " << ally[allychoice]->hp_getter() << std::endl;
+					printf("next turn : character %i\n", allyturn + 1);
+					turntaken = true;
+					//skillchoosen = false;
+					//targetchoosen = false;
+				}
+			}
+			else {
+				turntaken = true;
+				frame = 20;
+			}
+		}
+		
 	if (frame == 0) { 
 		if (turntaken == true) {
 			//for (int i = 0; i < 3; i++) {
@@ -129,14 +136,17 @@ void level1::render() {
 	//int frametime = 0;
 	//elapsed = SDL_GetTicks();
 		SDL_RenderClear(gameM::renderer);
-		SDL_Rect bgsc = { 0,0,600, 825 };
+		SDL_Rect bgsc = {300,200,300,300};
 		SDL_RenderCopy(gameM::renderer, bg, &bgsc, NULL);
 		SDL_Rect outofscreen = { 0, 0, 0, 0 };  // i can't interact with it anymore with this	
+		SDL_Rect boardbox = { 50 ,800, 600, 200 };
 
+		SDL_RenderCopy(gameM::renderer, board, NULL, &boardbox);
 		if(turntaken == true)
 		{
 			if (current->dead == false) {
 				current->aniEntity(1);
+				current->renderSkill();
 				frame++;
 			}
 			else current->renderEntity(outofscreen, 0);
@@ -146,14 +156,12 @@ void level1::render() {
 					if (i != allyturn) {
 						if (ally[i]->dead == false) {
 							ally[i]->renderEntity(0); //????
-							ally[i]->renderSkill();
 							ally[i]->renderHealth(dst[i]);
 						}
 						else ally[i]->renderEntity(outofscreen, 0);
 					}
 					if (enemy[i]->dead == false) {
 						enemy[i]->renderEntity(0);
-						enemy[i]->renderSkill();
 						enemy[i]->renderHealth(dst[i + 3]);
 					}
 					else enemy[i]->renderEntity(outofscreen, 0);
@@ -163,7 +171,6 @@ void level1::render() {
 				for (int i = 0; i < 3; i++) {
 					if (ally[i]->dead == false) {
 						ally[i]->renderEntity(0); //????
-						ally[i]->renderSkill();
 						ally[i]->renderHealth(dst[i]);
 					}
 					else ally[i]->renderEntity(outofscreen, 0);
@@ -171,7 +178,6 @@ void level1::render() {
 					if (i != enemyturn) {
 						if (enemy[i]->dead == false) {
 							enemy[i]->renderEntity(0);
-							enemy[i]->renderSkill();
 							enemy[i]->renderHealth(dst[i + 3]);
 						}
 						else enemy[i]->renderEntity(outofscreen, 0);
@@ -179,24 +185,24 @@ void level1::render() {
 				}
 			}	
 		}
-		if (turntaken == false){                 
+		if (turntaken == false){
+			current->renderSkill();                
 			for (int i = 0; i < 3; i++) {
 				if (ally[i]->dead == false) {
 					ally[i]->renderEntity(0); //????
-					ally[i]->renderSkill();
 					ally[i]->renderHealth(dst[i]);
 				}
 				else ally[i]->renderEntity(outofscreen, 0);
 
 				if (enemy[i]->dead == false) {
 					enemy[i]->renderEntity(0);
-					enemy[i]->renderSkill();
 					enemy[i]->renderHealth(dst[i + 3]);
 				}
 				else enemy[i]->renderEntity(outofscreen,0); 
 				}
 			}
 		SDL_RenderPresent(gameM::renderer);
+		
 		if (turntaken == true && frame == 20) {
 			if (myturn) {
 				allyturn++;
@@ -206,7 +212,7 @@ void level1::render() {
 					current = enemy[enemyturn];
 				}
 				else current = ally[allyturn];
-				std::cout << "current ally is" << allyturn << std::endl;
+				std::cout << "current ally is " << allyturn << std::endl;
 			}
 			else {
 				enemyturn++;
@@ -216,7 +222,7 @@ void level1::render() {
 					current = ally[allyturn];
 				}
 				else current = enemy[enemyturn];
-				std::cout << "current enemy is" << enemyturn << std::endl;
+				std::cout << "current enemy is " << enemyturn << std::endl;
 			}
 			if (current->dead == false) {
 				turntaken = false;
@@ -241,8 +247,10 @@ void level1::clean() {
 			ally[i]->~fren();
 			delete enemy[i];
 			delete ally[i];
-		}*/
+		}*/	
+		SDL_DestroyTexture(board);
 		gameM::current = gameM::after1;
 	}
+
 
 }

@@ -34,7 +34,7 @@ bool gameM::init() {
 			printf("Warning: Linear texture filtering not enabled!");
 			status = false;
 		}
-		window = SDL_CreateWindow("test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		window = SDL_CreateWindow("tower", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		if (window == NULL) {
 			printf("Window cannnot be created, error: %s", SDL_GetError());
 			status = false;
@@ -49,7 +49,7 @@ bool gameM::init() {
 		if (TTF_Init() == -1) {
 			std::cout << "cant init ttf, " << TTF_GetError() << std::endl;
 		}
-		writer::get().font = TTF_OpenFont("D:\\vslib\\SDL2_ttf-2.22.0\\Arial.ttf", 12);
+		writer::get().font = TTF_OpenFont("C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\font\\Roboto-Black.ttf", 12);
 
 		
 	}

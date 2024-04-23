@@ -13,6 +13,5 @@ public:
 	void update(); //update character stats
 	void clean(); //quit and change state
 	card boost[3]; SDL_Rect msgbox[3]; SDL_Rect textbox[3];
-	std::string text[3];
 };
 
