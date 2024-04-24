@@ -19,7 +19,6 @@ public:
 	void update();
 
 	//load image into character texture
-	void loadEntityTexture();
 	void renderEntity(SDL_Rect dst, int act);
 	void renderEntity(int act);
 	void aniEntity(int act);
@@ -27,7 +26,6 @@ public:
 	void renderHealth(SDL_Rect dst);
 	void set_rect(SDL_Rect& rect);
 	bool inside();
-
 	entityData stats;
 	skill abi[2];
 	std::string sprite[2];
@@ -52,4 +50,5 @@ public:
     mob(int ID) : entity::entity(ID) {};
 	~mob();
     int mob_skill();
+
 };

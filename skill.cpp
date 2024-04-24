@@ -13,7 +13,7 @@ skill::skill(int tp, double mult, int realcd) {
 skill skill::operator=(const skill& other){
 	type = other.type;
 	multiplier = other.multiplier;
-	cooldown = other.cooldown;
+	cooldown = 0;
 	cd = other.cd;
 	choosen = false;
 	return *this;
