@@ -10,7 +10,6 @@ mainMenu::~mainMenu() {
 }
 void mainMenu::loadMedia() {
 	bg = IMG_LoadTexture(gameM::renderer, "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\granblue-fantasy-relink-character-art-uhdpaper.com-hd-5.1773.jpg");
-
 }
 
 void mainMenu::eventHandler(SDL_Event e) {

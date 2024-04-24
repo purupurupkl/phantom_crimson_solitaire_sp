@@ -1,20 +1,19 @@
 #pragma once
-#include "gameM.h"
-#include "image.h"
-class mainMenu
+#include "baseState.h"
+class mainMenu : public baseState
 {
 public:
 	mainMenu();
 	~mainMenu();
 
-	void loadMedia();
+	void loadMedia() override;
 
 	//handle mouse events
-	void eventHandler(SDL_Event e);
+	void eventHandler(SDL_Event e) override;
 
-	void update();
-	void render();
-	void clean();
+	void update() override;
+	void render() override;
+	void clean() override;
 
 private:
 	SDL_Texture* bg;

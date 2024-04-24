@@ -3,37 +3,35 @@
 #include "image.h"
 #include "textureLoader.h"
 #include "entity.h"
-#include <queue>
-class mainCombat
+#include "baseState.h"
+class mainCombat : public baseState
 {
 public:
 	mainCombat();
 	~mainCombat();
 
-	virtual void loadMedia();
+	//virtual void loadMedia() override;
 
-	//handle mouse events
-	virtual void eventHandler (SDL_Event e);
+	////handle mouse events
+	//virtual void eventHandler (SDL_Event e);
 
-	virtual void update();
-	virtual void render();
-	virtual void clean();
+	//virtual void update();
+	//virtual void render();
+	//virtual void clean();
 	//static int bgOffset;
 	
-
+	int enemyatk();
 	SDL_Texture* bg;
 	//3 enemies, 3 allies
 	fren* ally[3];
-	mob* enemy[3];// 6 characters...
-	SDL_Rect dst[6];
+	mob* enemy[3];
+	
 	bool skillchoosen;
 	bool targetchoosen;
 	bool turntaken;
-	int currentturn;
 	int skillchoice;
 	int enemychoice;
 	int allychoice;
 	int frame;
-	//bool flag;
 };
 
