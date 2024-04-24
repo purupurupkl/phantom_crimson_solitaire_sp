@@ -1,23 +1,29 @@
 #include "level2.h"
 #include "allyLoader.h"
 void level2::loadMedia() {
-	currentturn = 0;
 	bg = IMG_LoadTexture(gameM::renderer, "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\combatbg.jpeg");
 	board = IMG_LoadTexture(gameM::renderer, "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\board.png");
 	allyLoader::get().realfren(ally);
+	dst[0] = { 80, 450, 200, 200 };
+	dst[1] = { 210, 510, 150, 150 };
+	dst[2] = { 100, 560, 150, 150 };
+
+
+	dst[3] = { 450, 450, 130, 130 };
+	dst[4] = { 400, 510, 130, 130 };
+	dst[5] = { 450, 560, 130, 130 };
 	for (int i = 0; i < 3; i++) {
-		ally[i]->loadEntityTexture();
+		//ally[i]->loadEntityTexture();
 		ally[i]->set_rect(dst[i]);
-		std::cout << ally[i]->stats.hp << std::endl;
 	}
 	for (int i = 0; i < 3; i++) {
-		enemy[i] = new mob(-1);
-		enemy[i]->loadEntityTexture();
+		enemy[i] = new mob(-2);
+		//enemy[i]->loadEntityTexture();
 		enemy[i]->set_rect(dst[i + 3]);
 	}
+
 	allyturn = 0;
 	enemyturn = 0;
-	frame = 0;
 	myturn = true;
 	current = ally[allyturn];
 }

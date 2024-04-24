@@ -6,18 +6,20 @@
 #include "booster.h"
 #include "constants.h"
 #include "writer.h"
+#include "baseState.h"
+
 mainMenu* mainmenu = new mainMenu();
 charSelect* charselect = new charSelect();
 //mainCombat* maincombat;
 level2* leveltwo = new level2();
 level1* levelone = new level1();
 booster* boost1 = new booster();
+baseState* base = levelone;
 int gameM::current = gameM::stage1;
 bool gameM::quit = false;
-bool gameM::flag = true;
+bool gameM::flag = true;            //first loadmedia
 SDL_Renderer* gameM::renderer = NULL;
 gameM::gameM() {
-
 };
 gameM::~gameM() {
 
@@ -56,27 +58,9 @@ bool gameM::init() {
 	return status;
 }
 void gameM::loadMedia() {
-	switch (current) {
-		case main_menu:
-			if(gameM::flag == true) mainmenu->loadMedia();
-			gameM::flag = false;
-			break;
-		case char_select:
-			if (gameM::flag == true) charselect->loadMedia();
-			gameM::flag = false;
-			break;
-		case stage1:
-			if (gameM::flag == true) levelone->loadMedia();
-			gameM::flag = false;
-			break;
-		case stage2:
-			if (gameM::flag == true) leveltwo->loadMedia();
-			gameM::flag = false;
-			break;
-		case after1:
-			if (gameM::flag == true) boost1->loadMedia();
-			gameM::flag = false;
-			break;
+	if (gameM::flag == true) {
+		base->loadMedia();
+		gameM::flag = false;
 	}
 }
 bool gameM::quitgame() {
@@ -86,82 +70,30 @@ void gameM::eventHandler(SDL_Event& e) {
 	if (e.type == SDL_QUIT) {
 		quit = true;
 	}
-	switch (current) {
-	case main_menu:
-		mainmenu->eventHandler(e);
-		break;
-	case char_select:
-		charselect->eventHandler(e);
-		break;
-	case stage1:
-		levelone->eventHandler(e);
-		break;
-	case after1:
-		boost1->eventHandler(e);
-		break;
-	case stage2:
-		leveltwo->eventHandler(e);
-		break;
-	}
+		base->eventHandler(e);
 }
 void gameM::update() {
-	switch (current) {
-	case main_menu:
-		mainmenu->update();
-		break;
-	case char_select:
-		charselect->update();
-		break;
-	case stage1:
-		/*maincombat*/ levelone->update();
-		break;
-	case after1:
-		boost1->update();
-		break;
-	case stage2:
-		/*maincombat*/ leveltwo->update();
-		break;
-	}
+	base->update();
 }
 void gameM::render() {
-	switch (current) {
-	case main_menu:
-		mainmenu->render();
-		break;
-	case char_select:
-		charselect->render();
-		break;
-	case stage1:
-		/*maincombat*/levelone->render();
-		break;
-	case after1:
-		boost1->render();
-		break;
-	case stage2:
-		leveltwo->render();
-		break;
-	}
+	base->render();
 }
 	
 void gameM::clean() {
-	switch (current) {
-	case main_menu:
-		mainmenu->clean();
-		break;
-	case char_select:
-		charselect->clean();
-		break;
-	case stage1:
-		/*maincombat*/levelone->clean();
-		break;
-	case after1:
-		boost1->clean();
-		break;
-	case stage2:
-		leveltwo->clean();
-		break;
+	base->clean();
+	if (gameM::flag == true) {
+		switch(current) {
+		case main_menu:
+			base = mainmenu;
+			break;
+		case stage1:
+			base = levelone;
+			break;
+		case stage2:
+			base = leveltwo;
+			break;
+		case after1:
+			base = boost1;
+		}
 	}
-	//delete(mainmenu);
-	//delete(charselect);
-	//delete(levelone);
 }

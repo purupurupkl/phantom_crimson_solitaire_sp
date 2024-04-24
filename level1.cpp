@@ -1,29 +1,33 @@
-#include "level1.h"
+	#include "level1.h"
 #include "allyLoader.h"
 void level1::loadMedia() {
-	currentturn = 0;
-	bg = IMG_LoadTexture(gameM::renderer, "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\combatbg.jpeg");
+	bg = IMG_LoadTexture(gameM::renderer, "resources\\combatbg.jpeg");
 	board = IMG_LoadTexture(gameM::renderer, "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\board.png");
 	allyLoader::get().realfren(ally);
+	dst[0] = {220, 450, 280, 200};
+	dst[1] = {200, 510, 150, 150};
+	dst[2] = {100, 560, 120, 150};
+
+
+	dst[3] = {450, 360, 250, 250};
+	dst[4] = {400, 410, 250, 250};
+	dst[5] = {450, 460, 250, 250};
 	for (int i = 0; i < 3; i++) {
-		ally[i]->loadEntityTexture();
 		ally[i]->set_rect(dst[i]);
-		std::cout << ally[i]->stats.hp << std::endl;
 	}
 	for (int i = 0; i < 3; i++) {
 		enemy[i] = new mob(-1);
-		enemy[i]->loadEntityTexture();
 		enemy[i]->set_rect(dst[i + 3]);
 	}
+
 	allyturn = 0;
 	enemyturn = 0;
-	frame = 0;
 	myturn = true;
 	current = ally[allyturn];
 }
 void level1::handlePlayer(SDL_Event& e) {
-
-	enum {
+	std::cout << dst[0].x << "dst 0 x" << std::endl;
+		enum {
 		attack,
 		support
 	};
@@ -90,16 +94,14 @@ void level1::update() {
 		if(frame == 0){
 			if (current->dead == false){
 				if(!myturn){
-					skillchoice = 0;
-					//skillchoosen = true;
-					allychoice = 0;
+					skillchoice = (current->available(1) == 1 ? 1 : 0);
+					if (skillchoice == 1) std::cout << "dog bited hard" << std::endl;
+					else std::cout << "dog bited" << std::endl;
+					allychoice = enemyatk();
 					while (ally[allychoice]->dead == true) allychoice = rand() % 3;
-					/*targetchoosen = true;*/
 					current->cast(skillchoice, ally[allychoice]);
 					printf("next turn : character %i\n", allyturn + 1);
 					turntaken = true;
-					//skillchoosen = false;
-					//targetchoosen = false;
 				}
 			}
 			else {
@@ -129,16 +131,13 @@ void level1::update() {
 }
 
 void level1::render() {
-	SDL_Color cl = { 0x00,0xFF,0x00,0xFF };
-	//int fps = 5;
-	//Uint32 elapsed = 0;
-	//int frametime = 0;
-	//elapsed = SDL_GetTicks();
+		SDL_Color cl = { 0x00,0xFF,0x00,0xFF };
 		SDL_RenderClear(gameM::renderer);
 		SDL_Rect bgsc = {300,200,300,300};
 		SDL_RenderCopy(gameM::renderer, bg, &bgsc, NULL);
 		SDL_Rect outofscreen = { 0, 0, 0, 0 };  // i can't interact with it anymore with this	
 		SDL_Rect boardbox = { 50 ,800, 600, 200 };
+		//render char icon here? 
 
 		SDL_RenderCopy(gameM::renderer, board, NULL, &boardbox);
 		if(turntaken == true)

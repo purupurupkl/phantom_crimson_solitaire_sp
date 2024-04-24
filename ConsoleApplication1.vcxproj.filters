@@ -75,6 +75,9 @@
     <ClCompile Include="card.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="baseState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
@@ -127,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="card.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="baseState.h">
+      <Filter>Header Files\states</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
