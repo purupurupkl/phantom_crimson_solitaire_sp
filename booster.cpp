@@ -8,7 +8,8 @@ booster::booster() {};
 booster::~booster() {};
 void booster::loadMedia() {
 	for (int i = 0; i < 3; i++) {
-		boost[i].random(30, 50);
+		if (gameM::currentstage == gameM::stage1) boost[i].random(20, 40);
+		else if (gameM::currentstage == gameM::stage2) boost[i].random(40, 60);
 		msgbox[i] = { 100, 100 + 300 * i, 500, 200 };
 		textbox[i] = { 200, 150 + 300 * i, 300 , 70 };
 	}
