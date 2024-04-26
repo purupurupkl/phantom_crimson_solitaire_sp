@@ -14,8 +14,9 @@ public:
 	void update() override;
 	void render() override;
 	void clean() override;
-
-private:
 	SDL_Texture* bg;
+private:
+
+	int alpha;
 	//image* button;
 };

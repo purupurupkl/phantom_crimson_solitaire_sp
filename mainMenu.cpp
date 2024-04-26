@@ -2,6 +2,7 @@
 #include "mainMenu.h"
 #include "textureLoader.h"
 #include "allyLoader.h"
+#include "writer.h"
 mainMenu::mainMenu() {
 
 }
@@ -9,7 +10,10 @@ mainMenu::~mainMenu() {
 
 }
 void mainMenu::loadMedia() {
-	bg = IMG_LoadTexture(gameM::renderer, "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\granblue-fantasy-relink-character-art-uhdpaper.com-hd-5.1773.jpg");
+	bg = IMG_LoadTexture(gameM::renderer, "resources\\sagaopening.png");
+	if(bg == NULL) std::cout << "could not load texture? " << SDL_GetError() << std::endl;
+
+	alpha = 255;
 }
 
 void mainMenu::eventHandler(SDL_Event e) {
@@ -19,21 +23,18 @@ void mainMenu::eventHandler(SDL_Event e) {
 	std::cout << "current state is " << gameM::current << std::endl;
 
 }
-
 void mainMenu::update() {
-	//if (flag == true) {
-	//	gameM::current = gameM::stage2;
-	//	flag = false;
-	//	SDL_RenderClear(gameM::renderer);
-	//}
+	alpha = (alpha + 15) % 255;
 }
-
 void mainMenu::render() {
 	SDL_RenderClear(gameM::renderer);
-	SDL_Rect dst = { 0,0, 1200, 600 };
-	SDL_RenderCopy(gameM::renderer, bg, NULL, NULL);
+	SDL_RenderCopy(gameM::renderer,bg, NULL, NULL);
+	std::cout << SDL_GetError();
+	writer::get().loadTextFlick("Press any key to continue", { 0xFF,0x00,0x00,0xFF }, { 150,700,300,100 }, 20, alpha);
 	SDL_RenderPresent(gameM::renderer);
 }
+
+
 
 void mainMenu::clean() {
 	if (gameM::flag == true) {
