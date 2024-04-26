@@ -63,6 +63,8 @@ void booster::clean(){
 			gameM::current = gameM::stage3;
 			break;
 		}
+		SDL_DestroyTexture(bg);
+		bg = NULL;
 	}
 
 }
