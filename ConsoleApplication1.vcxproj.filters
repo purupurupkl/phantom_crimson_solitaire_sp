@@ -45,9 +45,6 @@
     <ClCompile Include="mainMenu.cpp">
       <Filter>Source Files\states</Filter>
     </ClCompile>
-    <ClCompile Include="charSelect.cpp">
-      <Filter>Source Files\states</Filter>
-    </ClCompile>
     <ClCompile Include="entity.cpp">
       <Filter>Source Files\entities</Filter>
     </ClCompile>
@@ -111,9 +108,6 @@
       <Filter>Header Files\states</Filter>
     </ClInclude>
     <ClInclude Include="mainCombat.h">
-      <Filter>Header Files\states</Filter>
-    </ClInclude>
-    <ClInclude Include="charSelect.h">
       <Filter>Header Files\states</Filter>
     </ClInclude>
     <ClInclude Include="level1.h">
