@@ -2,7 +2,7 @@
 # Thông tin chung
   Họ và tên - MSSV: Bùi An Huy - 23020079
   Tên trò chơi: Badtower
-  [Video demo](https://www.youtube.com/watch?v=Ad-yxJYXzEw&ab_channel=B%C3%B9iAnHuy)
+  [Video demo](https://www.youtube.com/watch?v=-mEDrOMW2iE&ab_channel=B%C3%B9iAnHuy)
 # Mục lục
 1. [Giới thiệu game](#1Giới-thiệu-game)
 2. [Cách chơi](#2Cách-chơi)
