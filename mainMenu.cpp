@@ -12,7 +12,6 @@ mainMenu::~mainMenu() {
 void mainMenu::loadMedia() {
 	bg = IMG_LoadTexture(gameM::renderer, "resources\\sagaopening.png");
 	if(bg == NULL) std::cout << "could not load texture? " << SDL_GetError() << std::endl;
-
 	alpha = 255;
 }
 

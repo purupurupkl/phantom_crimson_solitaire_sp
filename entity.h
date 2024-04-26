@@ -23,7 +23,7 @@ public:
 	void renderEntity(int act);
 	void aniEntity(int act);
 	void renderSkill();
-	void renderHealth(SDL_Rect dst);
+	void renderHealth(SDL_Rect& sc);
 	void set_rect(SDL_Rect& rect);
 	bool inside();
 	entityData stats;

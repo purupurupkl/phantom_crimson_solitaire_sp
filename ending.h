@@ -12,6 +12,5 @@ public:
     void render() override;
     void clean() override;
     SDL_Texture* bg;
-    bool restart;
 };
 

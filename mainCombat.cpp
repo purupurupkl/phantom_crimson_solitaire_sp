@@ -7,17 +7,7 @@
 mainCombat::mainCombat() {
 	//all these rects and chars should be put in vectors or something
 	srand(time(0));
-	 targetchoosen = false;
-	 skillchoosen = false;
-	 turntaken = false;
-	 enemychoice = -1;
-	 allychoice = -1;
-	 skillchoice = -1;
-	 frame = 0;
-	 alive = 3;
-	 //flag = false;
-	 bgm = NULL;
-	 allenemydead = false;
+	 
 }
 mainCombat::~mainCombat() {
 
@@ -86,6 +76,7 @@ void mainCombat::render() {
 	//render char icon here? 
 
 	SDL_RenderCopy(gameM::renderer, board, NULL, &boardbox);
+
 	if (turntaken == true)
 	{
 		if (current->dead == false) {
@@ -168,7 +159,7 @@ void mainCombat::render() {
 			else current = enemy[enemyturn];
 			std::cout << "current enemy is " << enemyturn << std::endl;
 		}
-		if (current->dead == false) {
+		if (current->dead == false) { //check if next turn taker is dead. if alive reset
 			turntaken = false;
 			frame = 0;
 		}

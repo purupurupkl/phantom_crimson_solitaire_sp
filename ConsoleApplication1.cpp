@@ -10,9 +10,8 @@ int main(int argc, char* argv[])
 	int frametime = 0;
 
 	gameM* game = new gameM();
-	if (game->init()) {	
+	if (game->init()) {			
 		allyLoader::get().initAlly();
-		
 		while (!gameM::quit) {
 			elapsed = SDL_GetTicks();
 			game->loadMedia();

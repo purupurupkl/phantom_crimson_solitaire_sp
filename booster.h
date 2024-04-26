@@ -14,5 +14,6 @@ public:
 	void update() override; //update character stats
 	void clean() override; //quit and change state
 	card boost[3]; SDL_Rect msgbox[3]; SDL_Rect textbox[3];
+	SDL_Texture* bg;
 };
 

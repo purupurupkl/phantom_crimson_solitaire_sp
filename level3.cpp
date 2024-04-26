@@ -4,27 +4,37 @@ void level3::loadMedia() {
 	gameM::currentstage = 3;
 	bgm = Mix_LoadMUS("resources\\cblast.mp3");	
 	Mix_PlayMusic(bgm, -1);
-	bg = IMG_LoadTexture(gameM::renderer, "resources\\desert.jpeg");
+	bg = IMG_LoadTexture(gameM::renderer, "resources\\bglast.jpg");
 	board = IMG_LoadTexture(gameM::renderer, "resources\\board.png");
 	allyLoader::get().realfren(ally);
 
-	dst[0] = { 220, 450, 280, 200 };
-	dst[1] = { 200, 510, 150, 150 };
-	dst[2] = { 100, 560, 120, 150 };
+	dst[0] = { 220, 530, 280, 200 };
+	dst[1] = { 200, 590, 150, 150 };
+	dst[2] = { 100, 650, 120, 150 };
 
 
-	dst[3] = { 450, 360, 250, 250 };
-	dst[4] = { 400, 410, 250, 250 };
-	dst[5] = { 450, 460, 250, 250 };
+	dst[4] = { 450, 450, 150, 150 };
+	dst[3] = { 400, 490, 300, 250 };
+	dst[5] = { 450, 540, 150, 150 };
 	for (int i = 0; i < 3; i++) {
 		ally[i]->set_rect(dst[i]);
 	}
-	enemy[0] = new mob(-2);
+	enemy[0] = new mob(0);
 	enemy[2] = new mob(-2);
 	enemy[1] = new mob(0);
 	for (int i = 0; i < 3; i++) {
 		enemy[i]->set_rect(dst[i + 3]);
 	}
+	enemy[1]->dead = true;
+	enemy[2]->dead = true;
+	targetchoosen = false;
+	skillchoosen = false;
+	turntaken = false;
+	enemychoice = -1;
+	allychoice = -1;
+	skillchoice = -1;
+	frame = 0;
+	//flag = false;
 	allyturn = 0;
 	enemyturn = 0;
 	myturn = true;
@@ -103,7 +113,6 @@ void level3::clean() {
 			//SDL_RenderClear(gameM::renderer);
 		}
 		else gameM::won = true;
-		
 		for (int i = 0; i < 3; i++) {
 			delete enemy[i];
 		}
