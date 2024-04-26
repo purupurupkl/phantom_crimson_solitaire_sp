@@ -31,6 +31,8 @@ public:
 	std::string sprite[2];
 	image* stance[2];
 	image* skillImg[2];
+	Mix_Chunk* normal;
+	Mix_Chunk* skill;
 	int skillchoice;
 };
 

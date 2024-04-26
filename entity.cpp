@@ -68,6 +68,7 @@ void entity::cast(int skill, entity* target) {
 		target->stats.hp += skill_cast(skill);
 		if (target->stats.hp > target->stats.maxhp) target->stats.hp = target->stats.maxhp; //cap health
 	}
+	Mix_PlayChannel(-1, abi[skill].sfx, 0);
 	abi[skill].choosen = true;
 }
 void entity::update() {
@@ -132,9 +133,17 @@ void entity::renderSkill(){
 
 }
 void entity::renderHealth(SDL_Rect dst){
-	std::string health = std::to_string(stats.hp) + "/" + std::to_string(stats.maxhp);
-	SDL_Rect hpbox = { dst.x, dst.y - 50, 50 , 20 };
-	writer::get().loadText(health, { 0xFF,0xFF,0xFF,0xFF }, hpbox, 10);
+	SDL_Rect hpbox = { dst.x, dst.y - 50, 30 , 20 };
+	hpbox.w = 30 * (float)stats.maxhp / 100;
+	SDL_SetRenderDrawColor(gameM::renderer, 0xFF, 0x00, 0x00, 0x00);
+	SDL_RenderFillRect(gameM::renderer, &hpbox);
+	SDL_Rect hpremain = hpbox;
+	hpremain.w = hpbox.w* (stats.hp /(float)stats.maxhp);
+	SDL_SetRenderDrawColor(gameM::renderer, 0x00, 0xFF, 0x00, 0xFF);
+	SDL_RenderFillRect(gameM::renderer, &hpremain);
+	//std::string health = std::to_string(stats.hp) + "/" + std::to_string(stats.maxhp);
+	//
+	//writer::get().loadText(health, { 0xFF,0xFF,0xFF,0xFF }, hpbox, 10);
 }
 bool entity::inside() {
 	return (stance[0]->inside() || stance[1]->inside());
