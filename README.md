@@ -22,6 +22,7 @@
  ![boss](https://github.com/purupurupkl/tower/assets/161903895/f1477e08-558e-4119-9342-0345b491fb04)
 
 # 3. Tải game
+  * Clone repo này trong Visual Studio
 # 4. Các nguồn tham khảo
   * Hướng dẫn setup và các chức năng cơ bản của thư viện SDL2 : [Lazyfoo](https://lazyfoo.net/tutorials/SDL/index.php)
   * Hướng dẫn chung về State Machine: [Lazyfoo](https://lazyfoo.net/articles/article06/index.php)
