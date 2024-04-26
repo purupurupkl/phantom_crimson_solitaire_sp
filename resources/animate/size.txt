@@ -1,1 +1,0 @@
-scale 0,4 pos 250 290 workspace 550 400
