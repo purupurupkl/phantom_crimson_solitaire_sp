@@ -8,6 +8,7 @@ public:
 	static writer& get();
 	void loadText(std::string text, SDL_Color txtColor, SDL_Rect msg, int size);
 	void loadTextWrapped(std::string text, SDL_Color txtColor, SDL_Rect msg, int size, Uint32 wrap);
+	void loadTextFlick(std::string text, SDL_Color color, SDL_Rect msg, int size, int alpha);
 	TTF_Font* font;
 private:
 	writer() {};
