@@ -24,10 +24,11 @@
 # 4. Các nguồn tham khảo
   * Hướng dẫn setup và các chức năng cơ bản của thư viện SDL2 : [Lazyfoo](https://lazyfoo.net/tutorials/SDL/index.php)
   * Hướng dẫn chung về State Machine: [Lazyfoo](https://lazyfoo.net/articles/article06/index.php)
+  * Thiết kế singleton và inheritance : [The Cherno](https://www.youtube.com/@TheCherno)
   * Đồ họa trong game:
       - Hình ảnh nhân vật, âm thanh, các icon trong game: từ game [Arknights](https://www.arknights.global/) , tải trên [Aceship's Toolbox](https://aceship.github.io/AN-EN-Tags/akhrchars.html?opname=Saga)
       - 3 background của game [GBF](https://en.wikipedia.org/wiki/Granblue_Fantasy), [link hình ảnh](https://gbf-img.com/)
-      - Các hình ảnh còn lại (ảnh trước và sau game, khung trạng thái nhân vật) cũng được lấy trên mạng'
-  Ngoài các phần cơ bản (khởi tạo window, sử dụng texture, ttf,...) , các phần code còn lại trong game đều được em tự viết, không tham khảo. Tuy nhiên cũng vì khả năng của bản thân mà chất lượng game chưa thực sự được như em mong muốn.
+      - Các hình ảnh còn lại (ảnh trước và sau game, khung trạng thái nhân vật) cũng được lấy trên mạng
+  * Ngoài các phần trên, các phần code còn lại trong game hầu như được em tự viết, không tham khảo. Tuy nhiên cũng vì khả năng của bản thân mà chất lượng game chưa thực sự được như em mong muốn.
 
   
