@@ -1,6 +1,5 @@
 #include "gameM.h"
 #include "mainMenu.h"
-#include "charSelect.h"
 #include "level2.h"
 #include "level1.h"
 #include "level3.h"
@@ -18,7 +17,6 @@
 //};
 
 mainMenu* mainmenu = new mainMenu();
-charSelect* charselect = new charSelect();
 
 level1* levelone = new level1();
 level2* leveltwo = new level2();

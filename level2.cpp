@@ -5,17 +5,17 @@ void level2::loadMedia() {
 	gameM::currentstage = 2;
 	bgm = Mix_LoadMUS("resources\\cb2.mp3");
 	Mix_PlayMusic(bgm, -1);
-	bg = IMG_LoadTexture(gameM::renderer, "resources\\combatbg.jpeg");
+	bg = IMG_LoadTexture(gameM::renderer, "resources\\bg2.jpg");
 	board = IMG_LoadTexture(gameM::renderer, "resources\\board.png");
 	allyLoader::get().realfren(ally);
-	dst[0] = { 80, 450, 200, 200 };
-	dst[1] = { 210, 510, 150, 150 };
-	dst[2] = { 100, 560, 150, 150 };
+	dst[0] = { 80, 530, 200, 200 };
+	dst[1] = { 210, 590, 150, 150 };
+	dst[2] = { 100, 650, 150, 150 };
 
 
-	dst[3] = { 450, 450, 130, 130 };
-	dst[4] = { 400, 510, 130, 130 };
-	dst[5] = { 450, 560, 130, 130 };
+	dst[3] = { 450, 530, 130, 130 };
+	dst[4] = { 400, 590, 130, 130 };
+	dst[5] = { 450, 650, 130, 130 };
 	for (int i = 0; i < 3; i++) {
 		//ally[i]->loadEntityTexture();
 		ally[i]->set_rect(dst[i]);
@@ -25,6 +25,14 @@ void level2::loadMedia() {
 		//enemy[i]->loadEntityTexture();
 		enemy[i]->set_rect(dst[i + 3]);
 	}
+	targetchoosen = false;
+	skillchoosen = false;
+	turntaken = false;
+	enemychoice = -1;
+	allychoice = -1;
+	skillchoice = -1;
+	frame = 0;
+	//flag = false;
 	alive = 3;
 	allyturn = 0;
 	enemyturn = 0;
@@ -100,7 +108,7 @@ void level2::eventHandler(SDL_Event e) {
 void level2::clean() {
 		if (gameM::flag == true) {
 			if (alive == 0) {
-				gameM::current = gameM::again;
+				gameM::current = gameM::again; //to theEnd
 			}
 			else gameM::current = gameM::after1;
 			for (int i = 0; i < 3; i++) {

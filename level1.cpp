@@ -4,9 +4,11 @@ void level1::loadMedia() {
 	gameM::currentstage = 1;
 	bgm = Mix_LoadMUS("resources\\cb1.mp3");
 	Mix_PlayMusic(bgm, -1);
-	bg = IMG_LoadTexture(gameM::renderer, "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\bg1.jpg");
+	bg = IMG_LoadTexture(gameM::renderer, "resources\\bg1.jpg");
 	board = IMG_LoadTexture(gameM::renderer, "resources\\board.png");
 	allyLoader::get().realfren(ally);
+
+
 	dst[0] = {220, 450, 280, 200};
 	dst[1] = {200, 510, 150, 150};
 	dst[2] = {100, 560, 120, 150};
@@ -22,6 +24,14 @@ void level1::loadMedia() {
 		enemy[i] = new mob(-1);
 		enemy[i]->set_rect(dst[i + 3]);
 	}
+	targetchoosen = false;
+	 skillchoosen = false;
+	 turntaken = false;
+	 enemychoice = -1;
+	 allychoice = -1;
+	 skillchoice = -1;
+	 frame = 0;
+	 alive = 3;
 
 	allyturn = 0;
 	enemyturn = 0;
@@ -96,6 +106,13 @@ void level1::eventHandler(SDL_Event e){
 void level1::clean() {
 	
 	if (gameM::flag == true) {
+		SDL_DestroyTexture(board);
+		SDL_DestroyTexture(bg);
+		Mix_FreeMusic(bgm);
+		bgm = NULL;
+		board = NULL;
+		current = NULL;
+		bg = NULL;
 		if (alive == 0) {
 		gameM::current = gameM::again;
 		}
@@ -104,13 +121,6 @@ void level1::clean() {
 		for (int i = 0; i < 3; i++) {
 			delete enemy[i];
 		}
-		SDL_DestroyTexture(board);
-		SDL_DestroyTexture(bg);
 		
-		Mix_FreeMusic(bgm);
-		bgm = NULL;
-		board = NULL;
-		current = NULL;
-		bg = NULL;
 	}	
 }

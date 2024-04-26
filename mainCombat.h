@@ -18,12 +18,11 @@ public:
 	void update() override;
 	void render() override;
 	//virtual void clean();
-	//static int bgOffset;
 	
 	int enemyatk();
 	SDL_Texture* bg;
-	//3 enemies, 3 allies
 	SDL_Rect dst[6];
+	SDL_Rect hpbox[6];
 	fren* ally[3];
 	mob* enemy[3];
 	entity* current;    //pointer pointing to current turn taker
@@ -42,7 +41,6 @@ public:
     SDL_Texture* board;
 	int frame; //frame for animation
 	int alive;
-	bool allenemydead;
 	
 	Mix_Music* bgm;
 };
