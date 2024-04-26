@@ -137,11 +137,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="allyLoader.cpp" />
+    <ClCompile Include="baseState.cpp" />
     <ClCompile Include="booster.cpp" />
     <ClCompile Include="card.cpp" />
     <ClCompile Include="charSelect.cpp" />
     <ClCompile Include="ConsoleApplication1.cpp" />
     <ClCompile Include="entity.cpp" />
+    <ClCompile Include="level3.cpp" />
+    <ClCompile Include="ending.cpp" />
     <ClCompile Include="skill.cpp" />
     <ClCompile Include="gameM.cpp" />
     <ClCompile Include="image.cpp" />
@@ -155,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="allyLoader.h" />
+    <ClInclude Include="baseState.h" />
     <ClInclude Include="booster.h" />
     <ClInclude Include="card.h" />
     <ClInclude Include="charSelect.h" />
@@ -165,6 +169,8 @@
     <ClInclude Include="image.h" />
     <ClInclude Include="level1.h" />
     <ClInclude Include="level2.h" />
+    <ClInclude Include="level3.h" />
+    <ClInclude Include="ending.h" />
     <ClInclude Include="mainCombat.h" />
     <ClInclude Include="mainMenu.h" />
     <ClInclude Include="skill.h" />

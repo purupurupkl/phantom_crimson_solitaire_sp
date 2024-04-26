@@ -12,8 +12,6 @@ public:
 	
 	bool dead;
 	// when attacked
-	void attacked(int damage);
-	double hp_getter();
 	int available(int i);
 	void cast(int skill, entity* target);
 	int skill_cast(int i);
@@ -21,7 +19,6 @@ public:
 	void update();
 
 	//load image into character texture
-	void loadEntityTexture();
 	void renderEntity(SDL_Rect dst, int act);
 	void renderEntity(int act);
 	void aniEntity(int act);
@@ -29,12 +26,13 @@ public:
 	void renderHealth(SDL_Rect dst);
 	void set_rect(SDL_Rect& rect);
 	bool inside();
-
 	entityData stats;
 	skill abi[2];
 	std::string sprite[2];
 	image* stance[2];
 	image* skillImg[2];
+	Mix_Chunk* normal;
+	Mix_Chunk* skill;
 	int skillchoice;
 };
 
@@ -45,9 +43,7 @@ public:
 	using entity::entity;
 	fren(int ID) : entity::entity(ID) {};
     ~fren();
-	void statusUpdate();	
-	int availableSkill();
-};
+	void statusUpdate();	};
 
 class mob :
     public entity
@@ -56,4 +52,5 @@ public:
     mob(int ID) : entity::entity(ID) {};
 	~mob();
     int mob_skill();
+
 };

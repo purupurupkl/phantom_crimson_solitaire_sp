@@ -1,63 +1,118 @@
 #include "level2.h"
 #include "allyLoader.h"
+#include "writer.h"
 void level2::loadMedia() {
-		currentturn = 0;
-		bg = IMG_LoadTexture(gameM::renderer, "C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\redder.jpeg");
-		allyLoader::get().realfren(ally);
-		std::cout << " loaded level 2 " << std::endl;
-		for (int i = 0; i < 3; i++) {
-			/*ally[i] = new fren(1);*/
-			ally[i]->loadEntityTexture();
-			ally[i]->set_rect(dst[i]);
-			std::cout << ally[i]->hp_getter() << std::endl;
-		}
-		for (int i = 0; i < 3; i++) {
-			enemy[i] = new mob(-1);
-			enemy[i]->loadEntityTexture();
-			enemy[i]->set_rect(dst[i + 3]);
-		}
-};
-void level2::eventHandler(SDL_Event e){
+	gameM::currentstage = 2;
+	bgm = Mix_LoadMUS("resources\\cb2.mp3");
+	Mix_PlayMusic(bgm, -1);
+	bg = IMG_LoadTexture(gameM::renderer, "resources\\combatbg.jpeg");
+	board = IMG_LoadTexture(gameM::renderer, "resources\\board.png");
+	allyLoader::get().realfren(ally);
+	dst[0] = { 80, 450, 200, 200 };
+	dst[1] = { 210, 510, 150, 150 };
+	dst[2] = { 100, 560, 150, 150 };
 
+
+	dst[3] = { 450, 450, 130, 130 };
+	dst[4] = { 400, 510, 130, 130 };
+	dst[5] = { 450, 560, 130, 130 };
+	for (int i = 0; i < 3; i++) {
+		//ally[i]->loadEntityTexture();
+		ally[i]->set_rect(dst[i]);
+	}
+	for (int i = 0; i < 3; i++) {
+		enemy[i] = new mob(-2);
+		//enemy[i]->loadEntityTexture();
+		enemy[i]->set_rect(dst[i + 3]);
+	}
+	alive = 3;
+	allyturn = 0;
+	enemyturn = 0;
+	myturn = true;
+	current = ally[allyturn];
 }
-void level2::update(){}
-void level2::render() {
-	SDL_Color cl = { 0x00,0xFF,0x00,0xFF };
+void level2::handlePlayer(SDL_Event& e) {
 
-		SDL_RenderClear(gameM::renderer);
-		SDL_Rect bgsc = { 0,0,600, 825 };
-		SDL_RenderCopy(gameM::renderer, bg, &bgsc, NULL);
-		SDL_Rect outofscreen = { 0, 0, 0, 0 };  // i can't interact with it anymore with this
-		for (int i = 0; i < 3; i++) {
-			if (ally[i]->dead == false) {
-				if (i == currentturn) {
-					if (turntaken == true) {
-						ally[i]->aniEntity(1);
-					}
-					else ally[i]->renderEntity(dst[i], 0); //????
-					ally[i]->renderSkill();
-				}
-				else ally[i]->renderEntity(0);
-				ally[i]->renderHealth(dst[i]);
+	enum {
+		attack,
+		support
+	};
+	switch (e.key.keysym.sym) {
+	case SDLK_z:
+		skillchoice = current->available(0);
+		break;
+	case SDLK_x:
+		skillchoice = current->available(1);
+		break;
+	}
+	if (skillchoice != -1) {
+		skillchoosen = true;
+		int choice = -1;
+		switch (e.key.keysym.sym) {
+		case SDLK_1:
+			choice = 0; //what about dead enemy
+			break;
+		case SDLK_2:
+			choice = 1;
+			break;
+		case SDLK_3:
+			choice = 2;
+			break;
+		}
+		if (choice != -1) {
+			if (current->abi[skillchoice].type == attack && enemy[choice]->dead == false) {
+				enemychoice = choice;
+				targetchoosen = true;
 			}
-			else ally[i]->renderEntity(outofscreen, 0);
-			if (enemy[i]->dead == false) {
-				if (i + 3 == currentturn) {
-					enemy[i]->renderEntity(dst[i + 3], 1);
+			else if (current->abi[skillchoice].type == support && ally[choice]->dead == false) { //revive mechanism? nah
+				allychoice = choice;
+				targetchoosen = true;
+			}
+		}
+	}
+}
+void level2::eventHandler(SDL_Event e) {
+	if (frame == 0) {					//while animation is NOT playing
+		if (myturn) { //turn requirement not met
+			if (current->dead == false) {
+				if (e.type == SDL_KEYDOWN) {
+					handlePlayer(e);
 				}
-				else enemy[i]->renderEntity(0);
-				enemy[i]->renderHealth(dst[i + 3]);
+				if (skillchoosen == true && targetchoosen == true) {
+					if (enemychoice != -1) current->cast(skillchoice, enemy[enemychoice]);
+					else if (allychoice != -1) current->cast(skillchoice, ally[allychoice]);
+
+					std::cout << "ally " << allyturn << " took turn " << std::endl;
+					printf("next turn : character %i\n", allyturn + 1);
+					turntaken = true;
+					skillchoosen = false;
+					targetchoosen = false;
+				}
 			}
 			else {
-				enemy[i]->renderEntity(outofscreen, 0);
+			turntaken = true;
+			frame = 20;
 			}
 		}
-		SDL_RenderPresent(gameM::renderer);
-	
-	/*ally[0]->renderEntity(1, i);
-	ally[1]->renderEntity(1, i);
-	ally[2]->renderEntity(1, i);
-	SDL_RenderPresent(gameM::renderer);*/
-	//}
+		
+	}
+};
+void level2::clean() {
+		if (gameM::flag == true) {
+			if (alive == 0) {
+				gameM::current = gameM::again;
+			}
+			else gameM::current = gameM::after1;
+			for (int i = 0; i < 3; i++) {
+				delete enemy[i];
+			}
+			SDL_DestroyTexture(board);
+			board = NULL;
+			SDL_DestroyTexture(bg);
+			bg = NULL;
+			Mix_FreeMusic(bgm);
+			bgm = NULL;
+			current = NULL;
+		}
 }
 

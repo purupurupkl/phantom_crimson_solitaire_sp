@@ -5,7 +5,7 @@
 
 int main(int argc, char* argv[])
 {
-	int fps = 24;
+	int fps = 30;
 	Uint32 elapsed = 0;
 	int frametime = 0;
 
@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 	if (game->init()) {	
 		allyLoader::get().initAlly();
 		
-		while (!gameM::quitgame()) {
+		while (!gameM::quit) {
 			elapsed = SDL_GetTicks();
 			game->loadMedia();
 			SDL_Event e;

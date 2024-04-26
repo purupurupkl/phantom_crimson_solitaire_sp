@@ -89,6 +89,5 @@ void image::flick_if_needed() {
 	else set_alpha(255);
 }
 void image::clean() {
-	SDL_DestroyTexture(texture);
-	texture = NULL;
+
 }

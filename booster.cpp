@@ -51,5 +51,15 @@ void booster::update(){
 	
 }
 void booster::clean(){
-	if (gameM::flag == true) gameM::current = gameM::stage2;
+	if (gameM::flag == true) {
+		switch (gameM::currentstage) {
+		case 1:
+			gameM::current = gameM::stage2;
+			break;
+		case 2:
+			gameM::current = gameM::stage3;
+			break;
+		}
+	}
+
 }
