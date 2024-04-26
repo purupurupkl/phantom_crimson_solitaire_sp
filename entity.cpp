@@ -60,14 +60,19 @@ int entity::skill_cast(int i) {
 	return stats.atk*mult;
 }
 void entity::cast(int skill, entity* target) {
+	std::string text;
+	SDL_Rect notif = { 300, 100, 100, 100 };
 	if(abi[skill].type == 0){
-		target->stats.hp -= skill_cast(skill)*100 / (100 + target->stats.def);
+		int damage = skill_cast(skill)*100 / (100 + target->stats.def);
+		target->stats.hp -= damage;
 		if (target->stats.hp <= 0) target->dead = true;
 	}
 	else if (abi[skill].type == 1) {
 		target->stats.hp += skill_cast(skill);
 		if (target->stats.hp > target->stats.maxhp) target->stats.hp = target->stats.maxhp; //cap health
 	}
+	SDL_RenderPresent(gameM::renderer);
+	SDL_Delay(300);
 	Mix_PlayChannel(-1, abi[skill].sfx, 0);
 	abi[skill].choosen = true;
 }

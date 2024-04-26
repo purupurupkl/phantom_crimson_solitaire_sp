@@ -1,8 +1,8 @@
-	#include "level1.h"
+#include "level1.h"
 #include "allyLoader.h"
 void level1::loadMedia() {
 	gameM::currentstage = 1;
-	bgm = Mix_LoadMUS("resources\\cb1.mp3");
+	bgm = Mix_LoadMUS("resources/cb1.mp3");
 	Mix_PlayMusic(bgm, -1);
 	bg = IMG_LoadTexture(gameM::renderer, "resources\\bg1.jpg");
 	board = IMG_LoadTexture(gameM::renderer, "resources\\board.png");
