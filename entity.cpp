@@ -102,7 +102,11 @@ void entity::renderEntity(int act){
 		idle,
 		atk
 	};
-	stance[act]->autorender();
+	if (dead == false) {
+		stance[act]->autorender();
+	}
+	else stance[act]->render({0,0,0,0});
+	
 }
 void entity::aniEntity(int act) {
 	enum {
@@ -132,13 +136,20 @@ void entity::renderSkill(){
 	writer::get().loadText(stats.name, { 0xFF,0xFF,0xFF,0xFF }, {475, 855 ,50,20}, 15);
 
 }
-void entity::renderHealth(SDL_Rect dst){
-	SDL_Rect hpbox = { dst.x, dst.y - 50, 30 , 20 };
-	hpbox.w = 30 * (float)stats.maxhp / 100;
+void entity::renderHealth(SDL_Rect& sc){
+	SDL_Rect hpbox = { sc.x, sc.y - 50, 60, 20 };
+	//hpbox[0] = { 300,420,60,20 };
+	//hpbox[1] = { 200,470,60,20 };
+	//hpbox[2] = { 100,520,60,20 };
+	//hpbox[3] = { 490,500,60,20 };
+	//hpbox[4] = { 500,100,60,20 };
+	//hpbox[5] = { 600,100,60,20 };
+
+	//hpbox.w = 30 * (float)stats.maxhp / 100;
 	SDL_SetRenderDrawColor(gameM::renderer, 0xFF, 0x00, 0x00, 0x00);
 	SDL_RenderFillRect(gameM::renderer, &hpbox);
 	SDL_Rect hpremain = hpbox;
-	hpremain.w = hpbox.w* (stats.hp /(float)stats.maxhp);
+	hpremain.w = hpbox.w * (stats.hp / (float)stats.maxhp);
 	SDL_SetRenderDrawColor(gameM::renderer, 0x00, 0xFF, 0x00, 0xFF);
 	SDL_RenderFillRect(gameM::renderer, &hpremain);
 	//std::string health = std::to_string(stats.hp) + "/" + std::to_string(stats.maxhp);
