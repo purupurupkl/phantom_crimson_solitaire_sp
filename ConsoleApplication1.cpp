@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 	if (game->init()) {	
 		allyLoader::get().initAlly();
 		
-		while (!gameM::quitgame()) {
+		while (!gameM::quit) {
 			elapsed = SDL_GetTicks();
 			game->loadMedia();
 			SDL_Event e;

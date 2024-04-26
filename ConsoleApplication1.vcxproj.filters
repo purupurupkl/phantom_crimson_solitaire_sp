@@ -78,6 +78,12 @@
     <ClCompile Include="baseState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ending.cpp">
+      <Filter>Source Files\states</Filter>
+    </ClCompile>
+    <ClCompile Include="level3.cpp">
+      <Filter>Source Files\states</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
@@ -132,6 +138,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="baseState.h">
+      <Filter>Header Files\states</Filter>
+    </ClInclude>
+    <ClInclude Include="ending.h">
+      <Filter>Header Files\states</Filter>
+    </ClInclude>
+    <ClInclude Include="level3.h">
       <Filter>Header Files\states</Filter>
     </ClInclude>
   </ItemGroup>
