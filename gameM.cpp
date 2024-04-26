@@ -34,7 +34,17 @@ SDL_Renderer* gameM::renderer = NULL;
 gameM::gameM() {
 };
 gameM::~gameM() {
-
+	delete mainmenu;
+	delete levelone;
+	delete leveltwo;
+	delete levelthri;
+	delete boost1;
+	delete theEnd;
+	SDL_DestroyRenderer(renderer);
+	renderer = NULL;
+	SDL_DestroyWindow(window);
+	window = NULL;
+	IMG_Quit();
 };
 bool gameM::init() {
 	bool status = true;

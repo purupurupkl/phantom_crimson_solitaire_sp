@@ -3,7 +3,7 @@
 #include "entity.h"
 #include "allyLoader.h";
 
-int main(int argc, char* argv[])
+int WinMain(int argc, char* argv[])
 {
 	int fps = 30;
 	Uint32 elapsed = 0;
@@ -27,6 +27,8 @@ int main(int argc, char* argv[])
 		}
 	}
 	delete game;
+	TTF_Quit();
+	SDL_Quit();
 	return 0;
 }
 
