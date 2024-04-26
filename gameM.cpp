@@ -3,21 +3,35 @@
 #include "charSelect.h"
 #include "level2.h"
 #include "level1.h"
+#include "level3.h"
 #include "booster.h"
+#include "ending.h"
 #include "constants.h"
 #include "writer.h"
 #include "baseState.h"
+//enum {
+//	again = -1,
+//	main_menu = 0,
+//	stage1 = 1,
+//	after1 = 2,
+//
+//};
 
 mainMenu* mainmenu = new mainMenu();
 charSelect* charselect = new charSelect();
-//mainCombat* maincombat;
-level2* leveltwo = new level2();
+
 level1* levelone = new level1();
+level2* leveltwo = new level2();
+level3* levelthri = new level3();
 booster* boost1 = new booster();
-baseState* base = levelone;
-int gameM::current = gameM::stage1;
-bool gameM::quit = false;
-bool gameM::flag = true;            //first loadmedia
+ending* theEnd = new ending();
+
+baseState* base = mainmenu;
+int gameM::current = gameM::main_menu;	//indicate state 
+bool gameM::quit = false;		//while loop quit con
+bool gameM::flag = true;            //for state change and first loadmedia of each
+int gameM::currentstage = 0;
+bool gameM::won = false;
 SDL_Renderer* gameM::renderer = NULL;
 gameM::gameM() {
 };
@@ -26,7 +40,7 @@ gameM::~gameM() {
 };
 bool gameM::init() {
 	bool status = true;
-	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
 		printf("can't init sdl, error %s", SDL_GetError());
 		status = false;
 	}
@@ -52,19 +66,23 @@ bool gameM::init() {
 			std::cout << "cant init ttf, " << TTF_GetError() << std::endl;
 		}
 		writer::get().font = TTF_OpenFont("C:\\Users\\HUYBUIAN\\Desktop\\resources maybe\\font\\Roboto-Black.ttf", 12);
-
-		
+		if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048 < 0)) {
+			std::cout << "cant init audio, " << Mix_GetError() << std::endl;
+			status = false;
+		}
 	}
 	return status;
 }
 void gameM::loadMedia() {
+
+	// if resetflag = true
+	// deallocate all level
+	//allocate all level again
+	// that should reset everything
 	if (gameM::flag == true) {
 		base->loadMedia();
 		gameM::flag = false;
 	}
-}
-bool gameM::quitgame() {
-	return quit;
 }
 void gameM::eventHandler(SDL_Event& e) {
 	if (e.type == SDL_QUIT) {
@@ -92,8 +110,15 @@ void gameM::clean() {
 		case stage2:
 			base = leveltwo;
 			break;
+		case stage3:
+			base = levelthri;
+			break;
 		case after1:
 			base = boost1;
+			break;
+		case again:
+			base = theEnd;
+			break;
 		}
 	}
 }

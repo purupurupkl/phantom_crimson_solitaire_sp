@@ -1,6 +1,5 @@
 #pragma once
 #include "gameM.h"
-//inherited by unit(ally) and enemy?
 class image
 {
 public:
