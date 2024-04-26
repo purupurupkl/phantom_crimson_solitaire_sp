@@ -21,3 +21,10 @@ void allyLoader::applyCard(int atkmod, int hpmod) {
 		rAlly[i]->stats.maxatk += atkmod;
 	}
 }
+void allyLoader::reset(){
+	for (int i = 0; i < 3; i++) {
+		delete rAlly[i];
+		rAlly[i] = NULL;
+	}
+	allyLoader::initAlly();
+}
